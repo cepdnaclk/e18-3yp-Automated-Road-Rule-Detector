@@ -14,9 +14,9 @@ title: Automated Road Rule Detector
 ---
 
 ## Team
--  E/18/147, Jameel S., [email](mailto:e18147@eng.pdn.ac.lk)
--  E/18/242, Nimnadi J.A.S., [email](mailto:e18242@eng.pdn.ac.lk)
--  E/18/379, Wanduragala T.D.B., [email](mailto:e18379@eng.pdn.ac.lk)
+-  E/18/147, Jameel S. [e18147@eng.pdn.ac.lk](mailto:name@email.com)
+-  E/18/242, Nimnadi J.A.S. [e18242@eng.pdn.ac.lk](mailto:name@email.com)
+-  E/18/379, Wanduragala T.D.B. [e18379@eng.pdn.ac.lk](mailto:name@email.com)
 
 <!-- Image (photo/drawing of the final hardware) should be here -->
 
@@ -35,12 +35,11 @@ title: Automated Road Rule Detector
 
 ## Introduction
 
-Description of the real world problem and solution, impact
-
+A system that will be mounted onto a vehicle that senses the speed, line crossing and the distance from the vehicle to an incoming vehicle on the other lane while crossing a line. All these sensed details will be used to determine the severity of the vehicle’s road-lines based road rule breakage.
 
 ## Solution Architecture
 
-High level diagram + description
+![Sample Image](./images/solarch.png)
 
 ## Hardware and Software Designs
 
