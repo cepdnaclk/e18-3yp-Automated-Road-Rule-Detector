@@ -3,20 +3,20 @@ layout: home
 permalink: index.html
 
 # Please update this with your repository name and project title
-repository-name: eYY-3yp-project-template
-title: Project Template
+repository-name: eYY-3yp-Automated-Road-rule-Detector
+title: Automated Road Rule Detector
 ---
 
 [comment]: # "This is the standard layout for the project, but you can clean this and use your own template"
 
-# Project Title
+# Automated Road Rule Detector
 
 ---
 
 ## Team
--  eNumber, Name, [email](mailto:name@email.com)
--  eNumber, Name, [email](mailto:name@email.com)
--  eNumber, Name, [email](mailto:name@email.com)
+-  E/18/147, Jameel S., [email](mailto:e18147@eng.pdn.ac.lk)
+-  E/18/242, Nimnadi J.A.S., [email](mailto:e18242@eng.pdn.ac.lk)
+-  E/18/379, Wanduragala T.D.B., [email](mailto:e18379@eng.pdn.ac.lk)
 
 <!-- Image (photo/drawing of the final hardware) should be here -->
 
