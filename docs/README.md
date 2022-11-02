@@ -59,9 +59,17 @@ Finally, in our application, necessary details will be displayed for all drivers
 
 ![Sample Image](./images/hardwareDesign.png)
 
+#### Hardware Technologies
+
+![Sample Image](./images/hardwareTech.png)
+
 ### Software Design
 
 ![Sample Image](./images/softwareDesign.png)
+
+#### Software Technologies
+
+![Sample Image](./images/softwareTech.png)
 
 
 ## Testing
@@ -74,7 +82,13 @@ All items and costs
 
 | Item          | Quantity  | Unit Cost  | Total  |
 | ------------- |:---------:|:----------:|-------:|
-| Sample item   | 5         | 10 LKR     | 50 LKR |
+| Raspberry Pi 4 model B - 2GB RAM   | 1         | 26,000 LKR     | 26,000 LKR |
+| Raspberry Pi 4 CSI Camera Module   | 1         | 8,000 LKR     | 8,000 LKR |
+| Rotary Encoder   | 1         | 3,500 LKR     | 3,500 LKR |
+| GPS modem   | 1         | 1,790 LKR     | 1,790 LKR |
+| Ultrasonic Sensor HC-SR04   | 1         | 450 LKR     | 450 LKR |
+| Power Supply 9V battery  | 1         | 230 LKR     | 230 LKR |
+| **Total** |          |      | **39, 970 LKR** |
 
 ## Conclusion
 
