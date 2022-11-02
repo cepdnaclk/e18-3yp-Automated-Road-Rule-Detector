@@ -57,11 +57,11 @@ Finally, in our application, necessary details will be displayed for all drivers
 
 ### Hardware Design
 
-![Sample Image](./images/solution.png)
+![Sample Image](./images/hardwareDesign.png)
 
 ### Software Design
 
-![Sample Image](./images/solution.png)
+![Sample Image](./images/softwareDesign.png)
 
 
 ## Testing
