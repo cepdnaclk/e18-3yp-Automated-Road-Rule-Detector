@@ -35,6 +35,10 @@ title: Automated Road Rule Detector
 
 ## Introduction
 
+https://user-images.githubusercontent.com/73468096/204227892-e27bf4dd-a8cb-4a1b-a134-60695b556d3e.mp4
+
+
+
 Road accidents are ever increasing in number. It has been reported that the average death rate due to accidents on the road is 6 people a day. It is also noted that over 1000 road accidents happen in a week. Although policemen are on the look for those who drive recklessly and there is a heavy fining system for road traffic related incidents, we see that these existing solutions prove to be ineffective. 
 
 Another problem with the existing solution is that most drivers obey rules only when they see an official (policeman) on the road. This most definitely does not and will not solve the problems we face on the road.
