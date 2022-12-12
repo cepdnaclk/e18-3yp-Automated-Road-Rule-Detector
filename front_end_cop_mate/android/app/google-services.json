@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "98988524975",
+    "project_id": "cop-mate",
+    "storage_bucket": "cop-mate.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:98988524975:android:52bf4e84212b16fffc1b5a",
+        "android_client_info": {
+          "package_name": "com.ThamishWanduragala.front_end_cop_mate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "98988524975-acg1k3d97n7bvug9mg3j0sjcvkvbv08f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBs7a5Jg-rMBCjxByt5RBAeg1-hH3zf8wI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "98988524975-acg1k3d97n7bvug9mg3j0sjcvkvbv08f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
