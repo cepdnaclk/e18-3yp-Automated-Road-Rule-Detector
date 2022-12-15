@@ -9,6 +9,11 @@ void main() {
 class CopMate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: bottomnavigationbar());
+    return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'Lato',
+      ),
+      home: bottomnavigationbar(),
+    );
   }
 }
