@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front_end_cop_mate/bottomnavgationbar.dart';
+import 'package:front_end_cop_mate/screens/one_breaking.dart';
 import 'package:front_end_cop_mate/screens/welcome_screen.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class CopMate extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Lato',
       ),
-      home: bottomnavigationbar(),
+      home: one_breaking(),
     );
   }
 }
