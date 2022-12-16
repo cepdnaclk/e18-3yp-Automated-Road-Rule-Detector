@@ -174,61 +174,93 @@ class _register_userState extends State<register_user> {
         backgroundColor: Colors.indigo,
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [
-                  Colors.indigo.shade200,
-                  Colors.deepOrange.shade200,
-                ],
-              ),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [
+                Colors.indigo.shade200,
+                Colors.deepOrange.shade200,
+              ],
             ),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 10,
-                ),
-                heading(
-                    string: "Register", icon: FontAwesomeIcons.user, space: 40),
-                SizedBox(
-                  height: 50,
-                ),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: Form(
-                    key: _formkey,
-                    child: Column(
-                      children: <Widget>[
-                        _buildemailField(),
-                        SizedBox(height: 20),
-                        _buildpoliceidField(),
-                        SizedBox(height: 20),
-                        _buildpasswordField(),
-                        SizedBox(height: 20),
-                        _buildconfirmpasswordField(),
-                        SizedBox(height: 20),
-                        SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: () async {
-                            if (!_formkey.currentState!.validate()) {
-                              return;
-                            }
-                            _formkey.currentState!.save();
-                            if (password != confirmpassword) {
+          ),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              heading(
+                  string: "Register", icon: FontAwesomeIcons.user, space: 40),
+              SizedBox(
+                height: 50,
+              ),
+              Container(
+                padding: EdgeInsets.all(30),
+                child: Form(
+                  key: _formkey,
+                  child: Column(
+                    children: <Widget>[
+                      _buildemailField(),
+                      SizedBox(height: 20),
+                      _buildpoliceidField(),
+                      SizedBox(height: 20),
+                      _buildpasswordField(),
+                      SizedBox(height: 20),
+                      _buildconfirmpasswordField(),
+                      SizedBox(height: 20),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () async {
+                          if (!_formkey.currentState!.validate()) {
+                            return;
+                          }
+                          _formkey.currentState!.save();
+                          if (password != confirmpassword) {
+                            showDialog<void>(
+                              context: context,
+                              barrierDismissible:
+                                  false, // user must tap button!
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('Passwords do not match'),
+                                  content: SingleChildScrollView(
+                                    child: ListBody(
+                                      children: const <Widget>[
+                                        Text('Please enter password again.'),
+                                      ],
+                                    ),
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: const Text('Okay'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                            return;
+                          }
+                          try {
+                            final newUser =
+                                await _auth.createUserWithEmailAndPassword(
+                                    email: email, password: password);
+
+                            if (newUser != null) {
                               showDialog<void>(
                                 context: context,
                                 barrierDismissible:
                                     false, // user must tap button!
                                 builder: (BuildContext context) {
                                   return AlertDialog(
-                                    title: const Text('Passwords do not match'),
+                                    title: const Text('Succesfull!'),
                                     content: SingleChildScrollView(
                                       child: ListBody(
                                         children: const <Widget>[
-                                          Text('Please enter password again.'),
+                                          Text('Login to Continue.'),
                                         ],
                                       ),
                                     ),
@@ -243,36 +275,24 @@ class _register_userState extends State<register_user> {
                                   );
                                 },
                               );
-                              return;
+                              Navigator.pushNamed(context, login_screen.id);
                             }
-                            try {
-                              final newUser =
-                                  await _auth.createUserWithEmailAndPassword(
-                                      email: email, password: password);
-
-                              if (newUser != null) {
-                                Navigator.pushNamed(context, login_screen.id);
-                              }
-                            } catch (e) {
-                              print(e);
-                            }
-                          },
-                          child: Text("Register"),
-                          style: ButtonStyle(
-                              backgroundColor: MaterialStatePropertyAll<Color>(
-                                  Colors.deepOrangeAccent),
-                              minimumSize: MaterialStatePropertyAll<Size>(
-                                  Size(100, 40))),
-                        ),
-                      ],
-                    ),
+                          } catch (e) {
+                            print(e);
+                          }
+                        },
+                        child: Text("Register"),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll<Color>(
+                                Colors.deepOrangeAccent),
+                            minimumSize:
+                                MaterialStatePropertyAll<Size>(Size(100, 40))),
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(
-                  height: 150,
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

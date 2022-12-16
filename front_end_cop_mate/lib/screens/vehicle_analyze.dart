@@ -26,6 +26,7 @@ class _vehicle_analyzeState extends State<vehicle_analyze> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: SfCartesianChart(
         title: ChartTitle(text: 'Vehicle Data Analysis'),
         legend: Legend(isVisible: true),
@@ -60,6 +61,19 @@ class _vehicle_analyzeState extends State<vehicle_analyze> {
                   // fontStyle: FontStyle.italic,
                   // fontWeight: FontWeight.w300
                 ))),
+
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Colors.indigo.shade200,
+              Colors.deepOrange.shade200,
+            ],
+          ),
+        ),
+
       ),
     );
   }

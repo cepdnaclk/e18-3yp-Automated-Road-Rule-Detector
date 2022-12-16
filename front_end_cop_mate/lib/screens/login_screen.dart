@@ -102,71 +102,66 @@ class _login_screenState extends State<login_screen> {
         backgroundColor: Colors.indigo,
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [
-                  Colors.indigo.shade200,
-                  Colors.deepOrange.shade200,
-                ],
-              ),
-            ),
-            padding: EdgeInsets.all(10.0),
-            child: Column(
-              children: [
-                heading(
-                    string: "Login", icon: FontAwesomeIcons.user, space: 40),
-                SizedBox(
-                  height: 50,
-                ),
-                Form(
-                  key: _formkey,
-                  child: Column(
-                    children: <Widget>[
-                      _buildemailField(),
-                      SizedBox(height: 20),
-                      _buildpasswordField(),
-                      SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () async {
-                          if (!_formkey.currentState!.validate()) {
-                            return;
-                          }
-                          _formkey.currentState!.save();
-                          try {
-                            final user = await _auth.signInWithEmailAndPassword(
-                                email: email, password: password);
-
-                            if (user != null) {
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          bottomnavigationbar()),
-                                  (r) => false);
-                            }
-                          } catch (e) {
-                            print(e);
-                          }
-                        },
-                        child: Text("Login"),
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll<Color>(
-                                Colors.deepOrangeAccent),
-                            minimumSize:
-                                MaterialStatePropertyAll<Size>(Size(100, 40))),
-                      ),
-                      SizedBox(
-                        height: 300,
-                      ),
-                    ],
-                  ),
-                ),
+        child: Container(
+          height: double.infinity,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [
+                Colors.indigo.shade200,
+                Colors.deepOrange.shade200,
               ],
             ),
+          ),
+          padding: EdgeInsets.all(30.0),
+          child: Column(
+            children: [
+              heading(string: "Login", icon: FontAwesomeIcons.user, space: 40),
+              SizedBox(
+                height: 50,
+              ),
+              Form(
+                key: _formkey,
+                child: Column(
+                  children: <Widget>[
+                    _buildemailField(),
+                    SizedBox(height: 20),
+                    _buildpasswordField(),
+                    SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () async {
+                        if (!_formkey.currentState!.validate()) {
+                          return;
+                        }
+                        _formkey.currentState!.save();
+                        try {
+                          final user = await _auth.signInWithEmailAndPassword(
+                              email: email, password: password);
+
+                          if (user != null) {
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        bottomnavigationbar()),
+                                (r) => false);
+                          }
+                        } catch (e) {
+                          print(e);
+                        }
+                      },
+                      child: Text("Login"),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll<Color>(
+                              Colors.deepOrangeAccent),
+                          minimumSize:
+                              MaterialStatePropertyAll<Size>(Size(100, 40))),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),

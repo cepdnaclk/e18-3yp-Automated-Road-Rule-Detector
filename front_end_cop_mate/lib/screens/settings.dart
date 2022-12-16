@@ -10,25 +10,33 @@ class settings extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: [
-                heading(
-                    string: 'Settings', icon: FontAwesomeIcons.gear, space: 20),
-                SizedBox(height: 20),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    settingsbuttons(string: "Edit Profile", space: 120),
-                    SizedBox(height: 10),
-                    settingsbuttons(string: "Register Driver", space: 90),
-                    SizedBox(height: 10),
-                    settingsbuttons(string: "Log Out", space: 160)
-                  ],
-                ),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [
+                Colors.indigo.shade200,
+                Colors.deepOrange.shade200,
               ],
             ),
+          ),
+          child: Column(
+            children: [
+              heading(
+                  string: 'Settings', icon: FontAwesomeIcons.gear, space: 20),
+              SizedBox(height: 20),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  settingsbuttons(string: "Edit Profile", space: 120),
+                  SizedBox(height: 10),
+                  settingsbuttons(string: "Register Driver", space: 90),
+                  SizedBox(height: 10),
+                  settingsbuttons(string: "Log Out", space: 160)
+                ],
+              ),
+            ],
           ),
         ),
       ),
