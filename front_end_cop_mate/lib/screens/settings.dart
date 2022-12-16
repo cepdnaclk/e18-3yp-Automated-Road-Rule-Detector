@@ -4,6 +4,8 @@ import 'package:front_end_cop_mate/elements/heading.dart';
 import 'package:front_end_cop_mate/elements/settingsbuttons.dart';
 
 class settings extends StatelessWidget {
+  static const String id = 'settings';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
