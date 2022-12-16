@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class vehicle_analyze extends StatefulWidget {
-  const vehicle_analyze({super.key, required this.title});
-  final String title;
   static const String id = 'vehcile_analyze';
-
 
   @override
   State<vehicle_analyze> createState() => _vehicle_analyzeState();
@@ -26,54 +23,54 @@ class _vehicle_analyzeState extends State<vehicle_analyze> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      body: SfCartesianChart(
-        title: ChartTitle(text: 'Vehicle Data Analysis'),
-        legend: Legend(isVisible: true),
-        tooltipBehavior: _tooltipBehavior,
-        series: <ChartSeries<Breakages, DateTime>>[
-          LineSeries<Breakages, DateTime>(
-              name: 'Breakages',
-              dataSource: _chartData,
-              xValueMapper: (Breakages sales, _) => sales.date,
-              yValueMapper: (Breakages sales, _) => sales.p_value,
-              enableTooltip: true)
-        ],
-        //primaryXAxis: DateTimeAxis(), //DateTimeAxis ->Axis type
-        primaryXAxis: DateTimeAxis(
-            title: AxisTitle(
-                text: 'Date',
-                textStyle: TextStyle(
-                  color: Colors.black,
-                  fontFamily: 'Roboto',
-                  fontSize: 12,
-                  // fontStyle: FontStyle.italic,
-                  // fontWeight: FontWeight.w300
-                ))),
-        // primaryYAxis: NumericAxis(edgeLabelPlacement: EdgeLabelPlacement.shift),
-        primaryYAxis: NumericAxis(
-            title: AxisTitle(
-                text: 'Severity',
-                textStyle: TextStyle(
-                  color: Colors.black,
-                  fontFamily: 'Roboto',
-                  fontSize: 12,
-                  // fontStyle: FontStyle.italic,
-                  // fontWeight: FontWeight.w300
-                ))),
-
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [
-              Colors.indigo.shade200,
-              Colors.deepOrange.shade200,
+      body: SafeArea(
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [
+                Colors.indigo.shade200,
+                Colors.deepOrange.shade200,
+              ],
+            ),
+          ),
+          child: SfCartesianChart(
+            title: ChartTitle(text: 'Vehicle Data Analysis'),
+            legend: Legend(isVisible: true),
+            tooltipBehavior: _tooltipBehavior,
+            series: <ChartSeries<Breakages, DateTime>>[
+              LineSeries<Breakages, DateTime>(
+                  name: 'Breakages',
+                  dataSource: _chartData,
+                  xValueMapper: (Breakages sales, _) => sales.date,
+                  yValueMapper: (Breakages sales, _) => sales.p_value,
+                  enableTooltip: true)
             ],
+            //primaryXAxis: DateTimeAxis(), //DateTimeAxis ->Axis type
+            primaryXAxis: DateTimeAxis(
+                title: AxisTitle(
+                    text: 'Date',
+                    textStyle: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'Roboto',
+                      fontSize: 12,
+                      // fontStyle: FontStyle.italic,
+                      // fontWeight: FontWeight.w300
+                    ))),
+            // primaryYAxis: NumericAxis(edgeLabelPlacement: EdgeLabelPlacement.shift),
+            primaryYAxis: NumericAxis(
+                title: AxisTitle(
+                    text: 'Severity',
+                    textStyle: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'Roboto',
+                      fontSize: 12,
+                      // fontStyle: FontStyle.italic,
+                      // fontWeight: FontWeight.w300
+                    ))),
           ),
         ),
-
       ),
     );
   }
