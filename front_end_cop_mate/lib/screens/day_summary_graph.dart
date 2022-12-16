@@ -16,9 +16,8 @@ class _ChartApp extends StatelessWidget {
 }
 
 class day_summary_graph extends StatefulWidget {
-  // ignore: prefer_const_constructors_in_immutables
   day_summary_graph({Key? key}) : super(key: key);
-
+  static const String id = 'day_summary_graph';
   @override
   _day_summary_graphState createState() => _day_summary_graphState();
 }
