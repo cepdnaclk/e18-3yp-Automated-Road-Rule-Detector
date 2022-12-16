@@ -4,6 +4,8 @@ import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class vehicle_analyze extends StatefulWidget {
+  static const String id = 'vehcile_analyze';
+
   @override
   State<vehicle_analyze> createState() => _vehicle_analyzeState();
 }

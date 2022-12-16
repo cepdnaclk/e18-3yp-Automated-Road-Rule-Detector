@@ -7,6 +7,8 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 class one_breaking extends StatelessWidget {
+  static const String id = 'one_breaking';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

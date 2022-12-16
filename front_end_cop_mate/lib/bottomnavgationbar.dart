@@ -7,6 +7,8 @@ import 'package:front_end_cop_mate/screens/vehicle_analyze.dart';
 import 'package:front_end_cop_mate/screens/settings.dart';
 
 class bottomnavigationbar extends StatefulWidget {
+  static const String id = 'bottom_navigation_bar';
+
   @override
   State<bottomnavigationbar> createState() => _bottomnavigationbarState();
 }
