@@ -7,6 +7,8 @@ import 'package:front_end_cop_mate/screens/vehicle_analyze.dart';
 import 'package:front_end_cop_mate/screens/settings.dart';
 
 class bottomnavigationbar extends StatefulWidget {
+  static const String id = 'bottom_navigation_bar';
+
   @override
   State<bottomnavigationbar> createState() => _bottomnavigationbarState();
 }
@@ -25,6 +27,7 @@ class _bottomnavigationbarState extends State<bottomnavigationbar> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Cop Mate'),
+        backgroundColor: Colors.indigo,
       ),
       body: IndexedStack(
         index: currentIndex,
@@ -32,7 +35,7 @@ class _bottomnavigationbarState extends State<bottomnavigationbar> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.indigo,
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70,
         iconSize: 40,
@@ -40,21 +43,21 @@ class _bottomnavigationbarState extends State<bottomnavigationbar> {
         onTap: (index) => setState(() => currentIndex = index),
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-              backgroundColor: Colors.blue),
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.map),
-              label: 'Map',
-              backgroundColor: Colors.blue),
+            icon: Icon(Icons.map),
+            label: 'Map',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.car_repair),
-              label: 'Vehicles',
-              backgroundColor: Colors.blue),
+            icon: Icon(Icons.car_repair),
+            label: 'Vehicles',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-              backgroundColor: Colors.blue),
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
         ],
       ),
     );

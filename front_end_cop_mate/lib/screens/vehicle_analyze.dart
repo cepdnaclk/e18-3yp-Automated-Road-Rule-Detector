@@ -1,28 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const vehicle_analyze(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
 class vehicle_analyze extends StatefulWidget {
   const vehicle_analyze({super.key, required this.title});
   final String title;
+  static const String id = 'vehcile_analyze';
+
 
   @override
   State<vehicle_analyze> createState() => _vehicle_analyzeState();
