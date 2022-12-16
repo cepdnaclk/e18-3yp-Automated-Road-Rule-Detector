@@ -1,6 +1,6 @@
 ---
 layout: home
-permalink: index.html
+permalink: ./index.html
 
 # Please update this with your repository name and project title
 repository-name: e18-3yp-Automated-Road-rule-Detector
