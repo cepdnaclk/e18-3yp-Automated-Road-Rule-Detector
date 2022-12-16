@@ -97,9 +97,23 @@ class _login_screenState extends State<login_screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Cop Mate'),
+        backgroundColor: Colors.indigo,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [
+                  Colors.indigo.shade200,
+                  Colors.deepOrange.shade200,
+                ],
+              ),
+            ),
             padding: EdgeInsets.all(10.0),
             child: Column(
               children: [
@@ -144,6 +158,9 @@ class _login_screenState extends State<login_screen> {
                                 Colors.deepOrangeAccent),
                             minimumSize:
                                 MaterialStatePropertyAll<Size>(Size(100, 40))),
+                      ),
+                      SizedBox(
+                        height: 300,
                       ),
                     ],
                   ),

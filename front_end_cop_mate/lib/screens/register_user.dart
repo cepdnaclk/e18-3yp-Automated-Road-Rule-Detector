@@ -8,6 +8,7 @@ import 'package:front_end_cop_mate/elements/textfield.dart';
 import 'package:front_end_cop_mate/elements/textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:front_end_cop_mate/screens/login_screen.dart';
 
 class register_user extends StatefulWidget {
   static const String id = 'register_user';
@@ -168,11 +169,28 @@ class _register_userState extends State<register_user> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Cop Mate'),
+        backgroundColor: Colors.indigo,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [
+                  Colors.indigo.shade200,
+                  Colors.deepOrange.shade200,
+                ],
+              ),
+            ),
             child: Column(
               children: [
+                SizedBox(
+                  height: 10,
+                ),
                 heading(
                     string: "Register", icon: FontAwesomeIcons.user, space: 40),
                 SizedBox(
@@ -233,7 +251,7 @@ class _register_userState extends State<register_user> {
                                       email: email, password: password);
 
                               if (newUser != null) {
-                                print("Done");
+                                Navigator.pushNamed(context, login_screen.id);
                               }
                             } catch (e) {
                               print(e);
@@ -249,6 +267,9 @@ class _register_userState extends State<register_user> {
                       ],
                     ),
                   ),
+                ),
+                SizedBox(
+                  height: 150,
                 ),
               ],
             ),
