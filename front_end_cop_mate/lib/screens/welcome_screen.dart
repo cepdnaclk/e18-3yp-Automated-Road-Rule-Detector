@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front_end_cop_mate/elements/normalbutton.dart';
 
 class welcome_screen extends StatefulWidget {
   static const String id = 'welcome_screen';
@@ -11,11 +12,13 @@ class _welcome_screenState extends State<welcome_screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Welcome to Cop Mate"),
-      ),
       body: Center(
-        child: Text('Login'),
+        child: Column(
+          children: [
+            normalbutton(string: "Login"),
+            normalbutton(string: "Register"),
+          ],
+        ),
       ),
     );
   }

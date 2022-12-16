@@ -12,8 +12,11 @@ import 'package:front_end_cop_mate/screens/settings.dart';
 import 'package:front_end_cop_mate/screens/vehicle_analyze.dart';
 import 'package:front_end_cop_mate/screens/welcome_screen.dart';
 import 'package:front_end_cop_mate/bottomnavgationbar.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp((CopMate()));
 }
 
@@ -24,7 +27,7 @@ class CopMate extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Lato',
       ),
-      initialRoute: login_screen.id,
+      initialRoute: welcome_screen.id,
       routes: {
         welcome_screen.id: (context) => welcome_screen(),
         day_summary_graph.id: (context) => day_summary_graph(),
