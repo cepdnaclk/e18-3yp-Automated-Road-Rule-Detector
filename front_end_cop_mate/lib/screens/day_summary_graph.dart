@@ -34,57 +34,69 @@ class _day_summary_graphState extends State<day_summary_graph> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SfCartesianChart(
-        title: ChartTitle(text: 'Day summary graph'),
-        legend: Legend(isVisible: true),
-        series: <ChartSeries<ChartData, DateTime>>[
-          ColumnSeries<ChartData, DateTime>(
-              name: 'Single Line',
-              dataSource: _chartData,
-              xValueMapper: (ChartData data, _) => data.date,
-              yValueMapper: (ChartData data, _) => data.singleLine),
-          // LineSeries<ChartData, DateTime>(
-          //     name: 'Breakages',
-          //     dataSource: _chartData,
-          //     xValueMapper: (ChartData sales, _) => sales.date,
-          //     yValueMapper: (ChartData sales, _) => sales.p_value,
-          //     enableTooltip: true)
-          ColumnSeries<ChartData, DateTime>(
-              name: 'Double Line',
-              dataSource: _chartData,
-              xValueMapper: (ChartData data, _) => data.date,
-              yValueMapper: (ChartData data, _) => data.doubleLine),
-          ColumnSeries<ChartData, DateTime>(
-              name: 'Crossing Line',
-              dataSource: _chartData,
-              xValueMapper: (ChartData data, _) => data.date,
-              yValueMapper: (ChartData data, _) => data.crossingLine)
-        ],
-        //primaryXAxis: DateTimeAxis(), //DateTimeAxis ->Axis type
-        primaryXAxis: DateTimeAxis(
-            intervalType: DateTimeIntervalType.hours,
-            interval: 4,
-            title: AxisTitle(
-                text: 'Hours',
-                textStyle: TextStyle(
-                  color: Colors.black,
-                  fontFamily: 'Roboto',
-                  fontSize: 12,
-                  // fontStyle: FontStyle.italic,
-                  // fontWeight: FontWeight.w300
-                ))),
-        // primaryYAxis: NumericAxis(edgeLabelPlacement: EdgeLabelPlacement.shift),
-        primaryYAxis: NumericAxis(
-            title: AxisTitle(
-                text: 'Frequency',
-                textStyle: TextStyle(
-                  color: Colors.black,
-                  fontFamily: 'Roboto',
-                  fontSize: 12,
-                  // fontStyle: FontStyle.italic,
-                  // fontWeight: FontWeight.w300
-                ))),
-        palette: <Color>[Colors.purple, Colors.blueGrey, Colors.red],
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Colors.indigo.shade200,
+              Colors.deepOrange.shade200,
+            ],
+          ),
+        ),
+        child: SfCartesianChart(
+          title: ChartTitle(text: 'Day summary graph'),
+          legend: Legend(isVisible: true),
+          series: <ChartSeries<ChartData, DateTime>>[
+            ColumnSeries<ChartData, DateTime>(
+                name: 'Single Line',
+                dataSource: _chartData,
+                xValueMapper: (ChartData data, _) => data.date,
+                yValueMapper: (ChartData data, _) => data.singleLine),
+            // LineSeries<ChartData, DateTime>(
+            //     name: 'Breakages',
+            //     dataSource: _chartData,
+            //     xValueMapper: (ChartData sales, _) => sales.date,
+            //     yValueMapper: (ChartData sales, _) => sales.p_value,
+            //     enableTooltip: true)
+            ColumnSeries<ChartData, DateTime>(
+                name: 'Double Line',
+                dataSource: _chartData,
+                xValueMapper: (ChartData data, _) => data.date,
+                yValueMapper: (ChartData data, _) => data.doubleLine),
+            ColumnSeries<ChartData, DateTime>(
+                name: 'Crossing Line',
+                dataSource: _chartData,
+                xValueMapper: (ChartData data, _) => data.date,
+                yValueMapper: (ChartData data, _) => data.crossingLine)
+          ],
+          //primaryXAxis: DateTimeAxis(), //DateTimeAxis ->Axis type
+          primaryXAxis: DateTimeAxis(
+              intervalType: DateTimeIntervalType.hours,
+              interval: 4,
+              title: AxisTitle(
+                  text: 'Hours',
+                  textStyle: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'Roboto',
+                    fontSize: 12,
+                    // fontStyle: FontStyle.italic,
+                    // fontWeight: FontWeight.w300
+                  ))),
+          // primaryYAxis: NumericAxis(edgeLabelPlacement: EdgeLabelPlacement.shift),
+          primaryYAxis: NumericAxis(
+              title: AxisTitle(
+                  text: 'Frequency',
+                  textStyle: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'Roboto',
+                    fontSize: 12,
+                    // fontStyle: FontStyle.italic,
+                    // fontWeight: FontWeight.w300
+                  ))),
+          palette: <Color>[Colors.purple, Colors.blueGrey, Colors.red],
+        ),
       ),
     );
   }
