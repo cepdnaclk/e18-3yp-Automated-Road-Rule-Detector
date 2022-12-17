@@ -76,7 +76,7 @@ class _day_summary_graphState extends State<day_summary_graph> {
         // primaryYAxis: NumericAxis(edgeLabelPlacement: EdgeLabelPlacement.shift),
         primaryYAxis: NumericAxis(
             title: AxisTitle(
-                text: 'Severity',
+                text: 'Frequency',
                 textStyle: TextStyle(
                   color: Colors.black,
                   fontFamily: 'Roboto',
