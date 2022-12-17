@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:front_end_cop_mate/bottomnavgationbar.dart';
 import 'package:front_end_cop_mate/screens/one_breaking.dart';
+import 'package:front_end_cop_mate/screens/search_vehicles.dart';
 import 'package:front_end_cop_mate/screens/welcome_screen.dart';
 import 'package:front_end_cop_mate/screens/day_summary_map.dart';
 import 'package:front_end_cop_mate/screens/day_summary_graph.dart';
@@ -27,7 +28,7 @@ class CopMate extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Lato',
       ),
-      initialRoute: welcome_screen.id,
+      initialRoute: bottomnavigationbar.id,
       routes: {
         welcome_screen.id: (context) => welcome_screen(),
         day_summary_graph.id: (context) => day_summary_graph(),
@@ -39,6 +40,7 @@ class CopMate extends StatelessWidget {
         settings.id: (context) => settings(),
         vehicle_analyze.id: (context) => vehicle_analyze(),
         bottomnavigationbar.id: (context) => bottomnavigationbar(),
+        search_vehciles.id: (context) => search_vehciles(),
       },
     );
   }

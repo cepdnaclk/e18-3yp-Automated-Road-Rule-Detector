@@ -5,6 +5,7 @@ import 'package:front_end_cop_mate/screens/day_summary_map.dart';
 import 'package:front_end_cop_mate/screens/settings.dart';
 import 'package:front_end_cop_mate/screens/vehicle_analyze.dart';
 import 'package:front_end_cop_mate/screens/settings.dart';
+import 'package:front_end_cop_mate/screens/search_vehicles.dart';
 
 class bottomnavigationbar extends StatefulWidget {
   static const String id = 'bottom_navigation_bar';
@@ -18,7 +19,7 @@ class _bottomnavigationbarState extends State<bottomnavigationbar> {
   final screens = [
     day_summary_graph(),
     day_summary_map(),
-    vehicle_analyze(),
+    search_vehciles(),
     settings()
   ];
 

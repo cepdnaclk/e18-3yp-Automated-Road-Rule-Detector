@@ -18,6 +18,7 @@ class _welcome_screenState extends State<welcome_screen> {
       body: Center(
         child: SafeArea(
           child: Container(
+            height: double.infinity,
             width: double.infinity,
             decoration: BoxDecoration(
               gradient: LinearGradient(
