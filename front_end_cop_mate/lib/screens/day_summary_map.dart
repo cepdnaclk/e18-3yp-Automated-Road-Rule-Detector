@@ -22,6 +22,11 @@ class _day_summary_mapState extends State<day_summary_map> {
             ],
           ),
         ),
+        alignment: Alignment.center,
+        child: Text(
+          "Under Construction",
+          style: TextStyle(fontSize: 20),
+        ),
       ),
     );
   }
