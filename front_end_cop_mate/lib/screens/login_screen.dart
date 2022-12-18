@@ -8,6 +8,7 @@ import 'package:front_end_cop_mate/elements/constants.dart';
 import 'package:front_end_cop_mate/elements/normalbutton.dart';
 import 'package:front_end_cop_mate/elements/textfield.dart';
 import 'package:front_end_cop_mate/elements/textfield.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class login_screen extends StatefulWidget {
   static const String id = 'login_screen';
@@ -20,6 +21,7 @@ class _login_screenState extends State<login_screen> {
   final _auth = FirebaseAuth.instance;
   String email = "";
   String password = "";
+  bool showSpinner = false;
 
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
@@ -97,71 +99,83 @@ class _login_screenState extends State<login_screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('Cop Mate'),
         backgroundColor: Colors.indigo,
       ),
-      body: SafeArea(
-        child: Container(
-          height: double.infinity,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-                Colors.indigo.shade200,
-                Colors.deepOrange.shade200,
+      body: ModalProgressHUD(
+        inAsyncCall: showSpinner,
+        child: SafeArea(
+          child: Container(
+            height: double.infinity,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [
+                  Colors.indigo.shade200,
+                  Colors.deepOrange.shade200,
+                ],
+              ),
+            ),
+            padding: EdgeInsets.all(30.0),
+            child: Column(
+              children: [
+                heading(
+                    string: "Login", icon: FontAwesomeIcons.user, space: 40),
+                SizedBox(
+                  height: 50,
+                ),
+                Form(
+                  key: _formkey,
+                  child: Column(
+                    children: <Widget>[
+                      _buildemailField(),
+                      SizedBox(height: 20),
+                      _buildpasswordField(),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () async {
+                          setState(() {
+                            showSpinner = true;
+                          });
+                          if (!_formkey.currentState!.validate()) {
+                            return;
+                          }
+                          _formkey.currentState!.save();
+                          try {
+                            final user = await _auth.signInWithEmailAndPassword(
+                                email: email, password: password);
+
+                            if (user != null) {
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          bottomnavigationbar()),
+                                  (r) => false);
+                            }
+
+                            setState(() {
+                              showSpinner = false;
+                            });
+                          } catch (e) {
+                            print(e);
+                          }
+                        },
+                        child: Text("Login"),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll<Color>(
+                                Colors.deepOrangeAccent),
+                            minimumSize:
+                                MaterialStatePropertyAll<Size>(Size(100, 40))),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
-          ),
-          padding: EdgeInsets.all(30.0),
-          child: Column(
-            children: [
-              heading(string: "Login", icon: FontAwesomeIcons.user, space: 40),
-              SizedBox(
-                height: 50,
-              ),
-              Form(
-                key: _formkey,
-                child: Column(
-                  children: <Widget>[
-                    _buildemailField(),
-                    SizedBox(height: 20),
-                    _buildpasswordField(),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () async {
-                        if (!_formkey.currentState!.validate()) {
-                          return;
-                        }
-                        _formkey.currentState!.save();
-                        try {
-                          final user = await _auth.signInWithEmailAndPassword(
-                              email: email, password: password);
-
-                          if (user != null) {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        bottomnavigationbar()),
-                                (r) => false);
-                          }
-                        } catch (e) {
-                          print(e);
-                        }
-                      },
-                      child: Text("Login"),
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll<Color>(
-                              Colors.deepOrangeAccent),
-                          minimumSize:
-                              MaterialStatePropertyAll<Size>(Size(100, 40))),
-                    ),
-                  ],
-                ),
-              ),
-            ],
           ),
         ),
       ),

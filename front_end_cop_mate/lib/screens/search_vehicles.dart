@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:front_end_cop_mate/screens/vehicle_analyze.dart';
 import 'package:front_end_cop_mate/models/Vehicle.dart';
+import 'package:http/http.dart' as http;
 
 class search_vehciles extends StatefulWidget {
   static const String id = 'search_vehicles';
@@ -99,25 +100,42 @@ class _search_vehcilesState extends State<search_vehciles> {
                   filterSearchResults(value);
                 },
               ),
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: vehiclesDup.length,
-                itemBuilder: (context, index) {
-                  final vehicle = vehiclesDup[index];
-                  return Card(
-                    child: ListTile(
-                      title: Text(vehicle.vehiclenumber),
-                      subtitle: Text(vehicle.name),
-                      trailing: const Icon(Icons.arrow_forward),
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                vehicle_analyze(vehicle: vehicle)));
-                      },
-                    ),
-                  );
-                },
+              SizedBox(height: 20),
+              Container(
+                padding: const EdgeInsets.all(10.0),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blueAccent),
+                    borderRadius: BorderRadius.all(Radius.circular(25.0))),
+                height: 400,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: vehiclesDup.length,
+                  itemBuilder: (context, index) {
+                    final vehicle = vehiclesDup[index];
+                    return Card(
+                      child: ListTile(
+                        title: Text(vehicle.vehiclenumber),
+                        subtitle: Text(vehicle.name),
+                        trailing: const Icon(Icons.arrow_forward),
+                        onTap: () async {
+                          String url =
+                              "https://us-central1-cop-mate.cloudfunctions.net/randomNumber";
+
+                          final response = await http.get(Uri.parse(url));
+                          print(response.body);
+
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  vehicle_analyze(vehicle: vehicle)));
+                        },
+                      ),
+                    );
+                  },
+                ),
               ),
+              SizedBox(
+                height: 100,
+              )
             ],
           ),
         ),
