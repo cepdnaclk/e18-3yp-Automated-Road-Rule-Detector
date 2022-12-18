@@ -38,7 +38,7 @@ class CopMate extends StatelessWidget {
         register_user.id: (context) => register_user(),
         register_vehicle.id: (context) => register_vehicle(),
         settings.id: (context) => settings(),
-        vehicle_analyze.id: (context) => vehicle_analyze(),
+        //vehicle_analyze.id: (context) => vehicle_analyze(),
         bottomnavigationbar.id: (context) => bottomnavigationbar(),
         search_vehciles.id: (context) => search_vehciles(),
       },
