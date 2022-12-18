@@ -37,8 +37,8 @@ class _welcome_screenState extends State<welcome_screen> {
                 ),
                 CircleAvatar(
                   radius: 150,
-                  backgroundImage: AssetImage(
-                      'images/cute-police-cartoon-icon-illustration-vector.jpg'),
+                  backgroundColor: Colors.indigo.shade100,
+                  backgroundImage: AssetImage('images/FNkW-Z8XMAA59Kt.png'),
                 ),
                 SizedBox(
                   height: 50,

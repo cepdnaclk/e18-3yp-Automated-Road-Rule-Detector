@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:front_end_cop_mate/screens/day_summary_graph.dart';
 import 'package:front_end_cop_mate/screens/day_summary_graph.dart';
 import 'package:front_end_cop_mate/screens/day_summary_map.dart';
@@ -6,6 +7,7 @@ import 'package:front_end_cop_mate/screens/settings.dart';
 import 'package:front_end_cop_mate/screens/vehicle_analyze.dart';
 import 'package:front_end_cop_mate/screens/settings.dart';
 import 'package:front_end_cop_mate/screens/search_vehicles.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class bottomnavigationbar extends StatefulWidget {
   static const String id = 'bottom_navigation_bar';
@@ -22,6 +24,20 @@ class _bottomnavigationbarState extends State<bottomnavigationbar> {
     search_vehciles(),
     settings()
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getCurrentUser();
+  }
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  void getCurrentUser() async {
+    User? user = await auth.currentUser;
+    print("Logged in!");
+  }
 
   @override
   Widget build(BuildContext context) {

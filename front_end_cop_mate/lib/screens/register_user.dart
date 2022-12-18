@@ -9,6 +9,7 @@ import 'package:front_end_cop_mate/elements/textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:front_end_cop_mate/screens/login_screen.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class register_user extends StatefulWidget {
   static const String id = 'register_user';
@@ -24,6 +25,7 @@ class _register_userState extends State<register_user> {
   String password = "";
   String policeid = "";
   String confirmpassword = "";
+  bool showSpinner = false;
 
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
@@ -169,130 +171,145 @@ class _register_userState extends State<register_user> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('Cop Mate'),
         backgroundColor: Colors.indigo,
       ),
-      body: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-                Colors.indigo.shade200,
-                Colors.deepOrange.shade200,
-              ],
-            ),
-          ),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 10,
-              ),
-              heading(
-                  string: "Register", icon: FontAwesomeIcons.user, space: 40),
-              SizedBox(
-                height: 50,
-              ),
-              Container(
-                padding: EdgeInsets.all(30),
-                child: Form(
-                  key: _formkey,
-                  child: Column(
-                    children: <Widget>[
-                      _buildemailField(),
-                      SizedBox(height: 20),
-                      _buildpoliceidField(),
-                      SizedBox(height: 20),
-                      _buildpasswordField(),
-                      SizedBox(height: 20),
-                      _buildconfirmpasswordField(),
-                      SizedBox(height: 20),
-                      SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () async {
-                          if (!_formkey.currentState!.validate()) {
-                            return;
-                          }
-                          _formkey.currentState!.save();
-                          if (password != confirmpassword) {
-                            showDialog<void>(
-                              context: context,
-                              barrierDismissible:
-                                  false, // user must tap button!
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: const Text('Passwords do not match'),
-                                  content: SingleChildScrollView(
-                                    child: ListBody(
-                                      children: const <Widget>[
-                                        Text('Please enter password again.'),
-                                      ],
-                                    ),
-                                  ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      child: const Text('Okay'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                            return;
-                          }
-                          try {
-                            final newUser =
-                                await _auth.createUserWithEmailAndPassword(
-                                    email: email, password: password);
-
-                            if (newUser != null) {
-                              showDialog<void>(
-                                context: context,
-                                barrierDismissible:
-                                    false, // user must tap button!
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: const Text('Succesfull!'),
-                                    content: SingleChildScrollView(
-                                      child: ListBody(
-                                        children: const <Widget>[
-                                          Text('Login to Continue.'),
-                                        ],
-                                      ),
-                                    ),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        child: const Text('Okay'),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                              Navigator.pushNamed(context, login_screen.id);
-                            }
-                          } catch (e) {
-                            print(e);
-                          }
-                        },
-                        child: Text("Register"),
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll<Color>(
-                                Colors.deepOrangeAccent),
-                            minimumSize:
-                                MaterialStatePropertyAll<Size>(Size(100, 40))),
-                      ),
-                    ],
-                  ),
+      body: SingleChildScrollView(
+        child: ModalProgressHUD(
+          inAsyncCall: showSpinner,
+          child: SafeArea(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [
+                    Colors.indigo.shade200,
+                    Colors.deepOrange.shade200,
+                  ],
                 ),
               ),
-            ],
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 10,
+                  ),
+                  heading(
+                      string: "Register",
+                      icon: FontAwesomeIcons.user,
+                      space: 40),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(30),
+                    child: Form(
+                      key: _formkey,
+                      child: Column(
+                        children: <Widget>[
+                          _buildemailField(),
+                          SizedBox(height: 20),
+                          _buildpoliceidField(),
+                          SizedBox(height: 20),
+                          _buildpasswordField(),
+                          SizedBox(height: 20),
+                          _buildconfirmpasswordField(),
+                          SizedBox(height: 20),
+                          SizedBox(height: 20),
+                          ElevatedButton(
+                            onPressed: () async {
+                              if (!_formkey.currentState!.validate()) {
+                                return;
+                              }
+                              _formkey.currentState!.save();
+                              if (password != confirmpassword) {
+                                showDialog<void>(
+                                  context: context,
+                                  barrierDismissible:
+                                      false, // user must tap button!
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title:
+                                          const Text('Passwords do not match'),
+                                      content: SingleChildScrollView(
+                                        child: ListBody(
+                                          children: const <Widget>[
+                                            Text(
+                                                'Please enter password again.'),
+                                          ],
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: const Text('Okay'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                                return;
+                              }
+                              showSpinner = true;
+                              try {
+                                final newUser =
+                                    await _auth.createUserWithEmailAndPassword(
+                                        email: email, password: password);
+                                showSpinner = false;
+                                if (newUser != null) {
+                                  showDialog<void>(
+                                    context: context,
+                                    barrierDismissible:
+                                        false, // user must tap button!
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text('Succesfull!'),
+                                        content: SingleChildScrollView(
+                                          child: ListBody(
+                                            children: const <Widget>[
+                                              Text('Login to Continue.'),
+                                            ],
+                                          ),
+                                        ),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            child: const Text('Okay'),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                  Navigator.pushNamed(context, login_screen.id);
+                                }
+                              } catch (e) {
+                                print(e);
+                              }
+                            },
+                            child: Text("Register"),
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll<Color>(
+                                        Colors.deepOrangeAccent),
+                                minimumSize: MaterialStatePropertyAll<Size>(
+                                    Size(100, 40))),
+                          ),
+                          SizedBox(
+                            height: 200,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
