@@ -50,7 +50,7 @@ class _login_screenState extends State<login_screen> {
         labelText: "Email",
         icon: Icon(
           FontAwesomeIcons.envelope,
-          color: Colors.black,
+          color: Colors.white,
         ),
         hintText: "Email",
         hintStyle: TextStyle(color: Colors.grey),
@@ -83,7 +83,7 @@ class _login_screenState extends State<login_screen> {
         labelText: "Password",
         icon: Icon(
           FontAwesomeIcons.key,
-          color: Colors.black,
+          color: Colors.white,
         ),
         hintText: "Password",
         hintStyle: TextStyle(color: Colors.grey),
@@ -102,24 +102,25 @@ class _login_screenState extends State<login_screen> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('Cop Mate'),
-        backgroundColor: Colors.indigo,
+        backgroundColor: Color(0xFF518BB8),
       ),
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
         child: SafeArea(
           child: Container(
             height: double.infinity,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [
-                  Colors.indigo.shade200,
-                  Colors.deepOrange.shade200,
-                ],
-              ),
-            ),
-            padding: EdgeInsets.all(30.0),
+            // decoration: BoxDecoration(
+            //   gradient: LinearGradient(
+            //     begin: Alignment.topRight,
+            //     end: Alignment.bottomLeft,
+            //     colors: [
+            //       Colors.indigo.shade200,
+            //       Colors.deepOrange.shade200,
+            //     ],
+            //   ),
+            // ),
+            color: Color(0xFF234E70),
+
             child: Column(
               children: [
                 heading(
@@ -127,51 +128,59 @@ class _login_screenState extends State<login_screen> {
                 SizedBox(
                   height: 50,
                 ),
-                Form(
-                  key: _formkey,
-                  child: Column(
-                    children: <Widget>[
-                      _buildemailField(),
-                      SizedBox(height: 20),
-                      _buildpasswordField(),
-                      SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () async {
-                          setState(() {
-                            showSpinner = true;
-                          });
-                          if (!_formkey.currentState!.validate()) {
-                            return;
-                          }
-                          _formkey.currentState!.save();
-                          try {
-                            final user = await _auth.signInWithEmailAndPassword(
-                                email: email, password: password);
-
-                            if (user != null) {
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          bottomnavigationbar()),
-                                  (r) => false);
-                            }
-
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: Form(
+                    key: _formkey,
+                    child: Column(
+                      children: <Widget>[
+                        _buildemailField(),
+                        SizedBox(height: 20),
+                        _buildpasswordField(),
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () async {
                             setState(() {
-                              showSpinner = false;
+                              showSpinner = true;
                             });
-                          } catch (e) {
-                            print(e);
-                          }
-                        },
-                        child: Text("Login"),
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll<Color>(
-                                Colors.deepOrangeAccent),
-                            minimumSize:
-                                MaterialStatePropertyAll<Size>(Size(100, 40))),
-                      ),
-                    ],
+                            if (!_formkey.currentState!.validate()) {
+                              return;
+                            }
+                            _formkey.currentState!.save();
+                            try {
+                              final user =
+                                  await _auth.signInWithEmailAndPassword(
+                                      email: email, password: password);
+
+                              if (user != null) {
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            bottomnavigationbar()),
+                                    (r) => false);
+                              }
+
+                              setState(() {
+                                showSpinner = false;
+                              });
+                            } catch (e) {
+                              print(e);
+                            }
+                          },
+                          child: Text(
+                            "Login",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll<Color>(
+                                Color(0xFFFBF8BE),
+                              ),
+                              minimumSize: MaterialStatePropertyAll<Size>(
+                                  Size(100, 40))),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

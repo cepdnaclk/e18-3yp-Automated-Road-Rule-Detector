@@ -33,8 +33,8 @@ class _settingsState extends State<settings> {
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
               colors: [
-                Colors.indigo.shade200,
-                Colors.deepOrange.shade200,
+                Color(0xFF234E70),
+                Colors.white,
               ],
             ),
           ),

@@ -17,8 +17,8 @@ class _day_summary_mapState extends State<day_summary_map> {
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
             colors: [
-              Colors.indigo.shade200,
-              Colors.deepOrange.shade200,
+              Color(0xFF234E70),
+              Colors.white,
             ],
           ),
         ),
