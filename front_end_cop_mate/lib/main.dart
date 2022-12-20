@@ -28,7 +28,7 @@ class CopMate extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Lato',
       ),
-      initialRoute: bottomnavigationbar.id,
+      initialRoute: welcome_screen.id,
       routes: {
         welcome_screen.id: (context) => welcome_screen(),
         day_summary_graph.id: (context) => day_summary_graph(),
@@ -38,7 +38,7 @@ class CopMate extends StatelessWidget {
         register_user.id: (context) => register_user(),
         register_vehicle.id: (context) => register_vehicle(),
         settings.id: (context) => settings(),
-        vehicle_analyze.id: (context) => vehicle_analyze(),
+        //vehicle_analyze.id: (context) => vehicle_analyze(),
         bottomnavigationbar.id: (context) => bottomnavigationbar(),
         search_vehciles.id: (context) => search_vehciles(),
       },

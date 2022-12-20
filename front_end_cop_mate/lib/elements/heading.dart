@@ -12,7 +12,7 @@ class heading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      color: Colors.deepOrangeAccent,
+      color: Color(0xFF9FB9F1),
       height: 80,
       child: Row(
         children: [

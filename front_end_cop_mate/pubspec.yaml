@@ -44,6 +44,10 @@ dependencies:
   syncfusion_flutter_charts: ^20.3.61
   flutter_map: ^3.0.0
 
+  modal_progress_hud_nsn: ^0.3.0
+  http: ^0.13.5
+
+
 
 dev_dependencies:
   flutter_test:
