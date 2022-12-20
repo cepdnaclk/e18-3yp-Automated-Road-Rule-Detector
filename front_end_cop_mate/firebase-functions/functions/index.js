@@ -87,3 +87,62 @@ exports.getBreaking = functions.https.onRequest(async (req, res) => {
     res.send(error);
   }
 });
+
+exports.updateVehicle = functions.https.onRequest(async (req, res) => {
+  try{
+    const id = req.body.licenseplatenumber;
+    const vehicleJson = {
+      email: req.body.email,
+      licenseplatenumber: req.body.licenseplatenumber,
+      nic: req.body.nic,
+      owner: req.body.owner,
+      telephone: req.body.telephone
+    }
+    const usersDb = db.collection('vehicle');
+    const response = await usersDb.doc(id).set(vehicleJson);
+    res.send(response.data());
+  } catch(error){
+    res.send(error);
+  }
+  
+});
+
+exports.deleteVehicle = functions.https.onRequest(async (req, res) => {
+  try{
+    const plateNumber = req.url.split("/")[1].split("=")[1];
+    const vehicle = await db.collection('vehicle').doc(plateNumber).delete();
+    const response = vehicle.data();
+    
+    return res.status(200).send(
+      response
+    );
+  } catch(error){
+    res.send(error);
+  }
+});
+
+exports.getFrequency = functions.https.onRequest(async (req, res) => {
+  try{
+    const dateParameter = req.url.split("/")[1].split("=")[1];
+
+    const date = new Date(dateParameter);
+    // const timestamp = date.getTime();
+    const dateNext = new Date(dateParameter);
+    dateNext.setDate(dateNext.getDate() + 1);
+
+    // // Get the date and time from the time stamp
+    const breakings = await db.collection('breaking').where('datetime','>=', date.getTime()).get();
+    const response = breakings.docs.map(doc => doc.data());
+    // const date = response.datetime.toDate();
+    // const dateStr = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`; 
+    // const timeStr = `${(date.getHours() + 6 + (date.getMinutes() + 30)/60) | 0}:${(date.getMinutes() + 30)%60}`;
+
+    // const ret = date.getDate();
+    // DateFormat("yyyy-MM-dd hh:mm").format(date);
+    return res.send(
+      response
+    );
+  } catch(error){
+    res.send(error);
+  }
+});
