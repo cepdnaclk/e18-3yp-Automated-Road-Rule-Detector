@@ -7,3 +7,8 @@ This is a system designed to analyse vehicles in order to gather information abo
 ![Sample Image](./cover.jpg)
 
 To get more details about our system head over to our project page at https://cepdnaclk.github.io/e18-3yp-Automated-Road-Rule-Detector/
+
+
+Try our app @
+
+![Sample Image](./app_apk.png)
