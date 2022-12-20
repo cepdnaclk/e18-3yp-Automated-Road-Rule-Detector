@@ -11,4 +11,4 @@ To get more details about our system head over to our project page at https://ce
 
 Try our app @
 
-![Sample Image](./app_apk.jpg)
+![Sample Image](./app_apk.png)
