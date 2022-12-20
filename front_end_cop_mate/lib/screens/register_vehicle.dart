@@ -1,7 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:front_end_cop_mate/bottomnavgationbar.dart';
+import 'package:front_end_cop_mate/models/Vehicle.dart';
+import 'package:front_end_cop_mate/screens/settings.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:front_end_cop_mate/elements/heading.dart';
+import 'package:http/http.dart' as http;
 
 class register_vehicle extends StatefulWidget {
   const register_vehicle({Key? key}) : super(key: key);
@@ -68,7 +74,6 @@ class _register_vehicleState extends State<register_vehicle> {
 
         return null;
       },
-      keyboardType: TextInputType.number,
       onSaved: (value) {
         if (value != null && value.isNotEmpty) {
           vehiclenumber = value;
@@ -95,7 +100,6 @@ class _register_vehicleState extends State<register_vehicle> {
 
   Widget _buildname() {
     return TextFormField(
-      obscureText: true,
       validator: (value) {
         if (value!.isEmpty) {
           return 'Enter Name';
@@ -112,7 +116,7 @@ class _register_vehicleState extends State<register_vehicle> {
         fillColor: Colors.white,
         labelText: "Name",
         icon: Icon(
-          FontAwesomeIcons.key,
+          FontAwesomeIcons.user,
           color: Colors.black,
         ),
         hintText: "Name",
@@ -166,7 +170,7 @@ class _register_vehicleState extends State<register_vehicle> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('Cop Mate'),
-        backgroundColor: Colors.indigo,
+        backgroundColor: Color(0xFF518BB8),
       ),
       body: SingleChildScrollView(
         child: ModalProgressHUD(
@@ -178,8 +182,8 @@ class _register_vehicleState extends State<register_vehicle> {
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
                   colors: [
-                    Colors.indigo.shade200,
-                    Colors.deepOrange.shade200,
+                    Color(0xFF234E70),
+                    Colors.white,
                   ],
                 ),
               ),
@@ -211,7 +215,84 @@ class _register_vehicleState extends State<register_vehicle> {
                           SizedBox(height: 20),
                           SizedBox(height: 20),
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              if (!_formkey.currentState!.validate()) {
+                                return;
+                              }
+                              _formkey.currentState!.save();
+                              print("vehcle" + vehiclenumber);
+                              final response = await http.post(
+                                Uri.parse(
+                                    'https://us-central1-cop-mate.cloudfunctions.net/addVehicle'),
+                                body: {
+                                  "email": email,
+                                  "licenseplatenumber": vehiclenumber,
+                                  "nic": "9928",
+                                  "owner": name,
+                                  "telephone": telephone
+                                },
+                              );
+
+                              if (response.statusCode == 200) {
+                                showDialog<void>(
+                                  context: context,
+                                  barrierDismissible:
+                                      false, // user must tap button!
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('Successful!'),
+                                      content: SingleChildScrollView(
+                                        child: ListBody(
+                                          children: const <Widget>[
+                                            Text(
+                                                'Vehicle Registered Successfully!'),
+                                          ],
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: const Text('Okay'),
+                                          onPressed: () {
+                                            Navigator.pushAndRemoveUntil(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        bottomnavigationbar()),
+                                                (r) => false);
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              } else {
+                                showDialog<void>(
+                                  context: context,
+                                  barrierDismissible:
+                                      false, // user must tap button!
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('Unsuccessful'),
+                                      content: SingleChildScrollView(
+                                        child: ListBody(
+                                          children: const <Widget>[
+                                            Text('Please try again!'),
+                                          ],
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: const Text('Okay'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+                            },
                             child: Text("Register"),
                             style: ButtonStyle(
                                 backgroundColor:

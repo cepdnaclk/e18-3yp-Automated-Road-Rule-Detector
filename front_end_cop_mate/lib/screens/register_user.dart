@@ -54,7 +54,7 @@ class _register_userState extends State<register_user> {
         labelText: "Email",
         icon: Icon(
           FontAwesomeIcons.envelope,
-          color: Colors.black,
+          color: Colors.white,
         ),
         hintText: "Email",
         hintStyle: TextStyle(color: Colors.grey),
@@ -76,7 +76,6 @@ class _register_userState extends State<register_user> {
 
         return null;
       },
-      keyboardType: TextInputType.number,
       onSaved: (value) {
         if (value != null && value.isNotEmpty) {
           policeid = value;
@@ -88,7 +87,7 @@ class _register_userState extends State<register_user> {
         labelText: "Id",
         icon: Icon(
           FontAwesomeIcons.idCard,
-          color: Colors.black,
+          color: Colors.white,
         ),
         hintText: "Id",
         hintStyle: TextStyle(color: Colors.grey),
@@ -121,7 +120,7 @@ class _register_userState extends State<register_user> {
         labelText: "Password",
         icon: Icon(
           FontAwesomeIcons.key,
-          color: Colors.black,
+          color: Colors.white,
         ),
         hintText: "Password",
         hintStyle: TextStyle(color: Colors.grey),
@@ -155,7 +154,7 @@ class _register_userState extends State<register_user> {
         labelText: "Confirm Password",
         icon: Icon(
           FontAwesomeIcons.key,
-          color: Colors.black,
+          color: Colors.white,
         ),
         hintText: "Confirm Password",
         hintStyle: TextStyle(color: Colors.grey),
@@ -174,28 +173,29 @@ class _register_userState extends State<register_user> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('Cop Mate'),
-        backgroundColor: Colors.indigo,
+        backgroundColor: Color(0xFF518BB8),
       ),
       body: SingleChildScrollView(
         child: ModalProgressHUD(
           inAsyncCall: showSpinner,
           child: SafeArea(
             child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: [
-                    Colors.indigo.shade200,
-                    Colors.deepOrange.shade200,
-                  ],
-                ),
-              ),
+              // decoration: BoxDecoration(
+              //   gradient: LinearGradient(
+              //     begin: Alignment.topRight,
+              //     end: Alignment.bottomLeft,
+              //     colors: [
+              //       Colors.indigo.shade200,
+              //       Colors.deepOrange.shade200,
+              //     ],
+              //   ),
+              // ),
+              color: Color(0xFF234E70),
               child: Column(
                 children: [
-                  SizedBox(
-                    height: 10,
-                  ),
+                  // SizedBox(
+                  //   height: 10,
+                  // ),
                   heading(
                       string: "Register",
                       icon: FontAwesomeIcons.user,
@@ -292,11 +292,13 @@ class _register_userState extends State<register_user> {
                                 print(e);
                               }
                             },
-                            child: Text("Register"),
+                            child: Text("Register",
+                                style: TextStyle(color: Colors.black)),
                             style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStatePropertyAll<Color>(
-                                        Colors.deepOrangeAccent),
+                                  Color(0xFFFBF8BE),
+                                ),
                                 minimumSize: MaterialStatePropertyAll<Size>(
                                     Size(100, 40))),
                           ),

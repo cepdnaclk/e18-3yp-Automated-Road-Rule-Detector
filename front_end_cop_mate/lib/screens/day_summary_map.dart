@@ -37,6 +37,7 @@ class _day_summary_mapState extends State<day_summary_map> {
         options: MapOptions(
           center: LatLng(7.466, 80.62),
           zoom: 8,
+
         ),
         children: [
           TileLayer(
