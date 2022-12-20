@@ -25,6 +25,7 @@ class CopMate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Lato',
         backgroundColor: Color(0xFF234E70),

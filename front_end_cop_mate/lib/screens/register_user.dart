@@ -9,7 +9,9 @@ import 'package:front_end_cop_mate/elements/textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:front_end_cop_mate/screens/login_screen.dart';
+import 'package:front_end_cop_mate/screens/welcome_screen.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:front_end_cop_mate/bottomnavgationbar.dart';
 
 class register_user extends StatefulWidget {
   static const String id = 'register_user';
@@ -271,7 +273,8 @@ class _register_userState extends State<register_user> {
                                         content: SingleChildScrollView(
                                           child: ListBody(
                                             children: const <Widget>[
-                                              Text('Login to Continue.'),
+                                              Text(
+                                                  'Registered Successfully. Login to continue'),
                                             ],
                                           ),
                                         ),
@@ -279,14 +282,18 @@ class _register_userState extends State<register_user> {
                                           TextButton(
                                             child: const Text('Okay'),
                                             onPressed: () {
-                                              Navigator.of(context).pop();
+                                              Navigator.pushAndRemoveUntil(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          welcome_screen()),
+                                                  (r) => false);
                                             },
                                           ),
                                         ],
                                       );
                                     },
                                   );
-                                  Navigator.pushNamed(context, login_screen.id);
                                 }
                               } catch (e) {
                                 print(e);

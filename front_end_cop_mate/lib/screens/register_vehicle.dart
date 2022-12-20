@@ -293,16 +293,17 @@ class _register_vehicleState extends State<register_vehicle> {
                                 );
                               }
                             },
-                            child: Text("Register"),
+                            child: Text("Register",
+                                style: TextStyle(color: Colors.black)),
                             style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStatePropertyAll<Color>(
-                                        Colors.deepOrangeAccent),
+                                        Color(0xFFFBF8BE)),
                                 minimumSize: MaterialStatePropertyAll<Size>(
                                     Size(100, 40))),
                           ),
                           SizedBox(
-                            height: 200,
+                            height: 300,
                           ),
                         ],
                       ),

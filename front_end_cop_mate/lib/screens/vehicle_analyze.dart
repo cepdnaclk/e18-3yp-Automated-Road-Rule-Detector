@@ -4,10 +4,12 @@ import 'package:front_end_cop_mate/elements/ReusableCard.dart';
 import 'package:front_end_cop_mate/elements/heading.dart';
 import 'package:front_end_cop_mate/models/Vehicle.dart';
 import 'package:front_end_cop_mate/screens/one_breaking.dart';
+import 'package:front_end_cop_mate/screens/search_vehicles.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:front_end_cop_mate/models/Vehicle.dart';
 import 'package:front_end_cop_mate/models/Breaking.dart';
 import 'package:front_end_cop_mate/bottomnavgationbar.dart';
+import 'package:http/http.dart' as http;
 
 class vehicle_analyze extends StatefulWidget {
   static const String id = 'vehcile_analyze';
@@ -25,6 +27,7 @@ List<Breaking> breakings = [];
 class _vehicle_analyzeState extends State<vehicle_analyze> {
   late List<Breakages> _chartData;
   late TooltipBehavior _tooltipBehavior;
+  bool _isShown = true;
 
   // List<Breaking> breakings = [
   //   const Breaking(
@@ -153,6 +156,73 @@ class _vehicle_analyzeState extends State<vehicle_analyze> {
                           string: "Contact:    " + widget.vehicle.telephone),
                       SizedBox(height: 3),
                       ReusableCard(string: "Email:    " + widget.vehicle.email),
+                      SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              showDialog<void>(
+                                context: context,
+                                barrierDismissible:
+                                    false, // user must tap button!
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('Delete this Vehicle?'),
+                                    content: SingleChildScrollView(
+                                      child: Column(
+                                        children: <Widget>[
+                                          Text(
+                                              'Would you like to delete this Vehicle?'),
+                                        ],
+                                      ),
+                                    ),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: Text('Confirm'),
+                                        onPressed: () async {
+                                          print('Confirmed');
+                                          String url =
+                                              "https://us-central1-cop-mate.cloudfunctions.net/deleteVehicle?licenseplatenumber=" +
+                                                  widget.vehicle.vehiclenumber;
+                                          final response2 =
+                                              await http.delete(Uri.parse(url));
+
+                                          if (response2.statusCode == 200) {
+                                            Navigator.pushAndRemoveUntil(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        bottomnavigationbar()),
+                                                (r) => false);
+                                          }
+                                        },
+                                      ),
+                                      TextButton(
+                                        child: Text('Cancel'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            child: Text(
+                              "Delete",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll<Color>(
+                                  Colors.redAccent,
+                                ),
+                                minimumSize: MaterialStatePropertyAll<Size>(
+                                    Size(150, 50))),
+                          )
+                        ],
+                      ),
                       SizedBox(height: 10),
                       ReusableCard(string: "Breakings"),
                       SizedBox(height: 10),
