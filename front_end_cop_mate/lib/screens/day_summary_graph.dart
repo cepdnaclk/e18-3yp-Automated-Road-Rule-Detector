@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:front_end_cop_mate/elements/heading.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 void main() {
@@ -34,68 +36,102 @@ class _day_summary_graphState extends State<day_summary_graph> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [
-              Colors.indigo.shade200,
-              Colors.deepOrange.shade200,
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [
+                Color(0xFF234E70),
+                Colors.white,
+              ],
+            ),
+          ),
+          child: Column(
+            children: [
+              heading(
+                  string: "Day Summary",
+                  icon: FontAwesomeIcons.calendarDay,
+                  space: 20),
+              Container(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                      height: 600,
+                      width: 400,
+                      child: SfCartesianChart(
+                        legend: Legend(isVisible: true),
+                        backgroundColor: Colors.white70,
+                        series: <ChartSeries<ChartData, DateTime>>[
+                          ColumnSeries<ChartData, DateTime>(
+                              name: 'Single Line',
+                              color: Color(0xFFa9a9a9),
+                              dataSource: _chartData,
+                              xValueMapper: (ChartData data, _) => data.date,
+                              yValueMapper: (ChartData data, _) =>
+                                  data.singleLine),
+                          // LineSeries<ChartData, DateTime>(
+                          //     name: 'Breakages',
+                          //     dataSource: _chartData,
+                          //     xValueMapper: (ChartData sales, _) => sales.date,
+                          //     yValueMapper: (ChartData sales, _) => sales.p_value,
+                          //     enableTooltip: true)
+                          ColumnSeries<ChartData, DateTime>(
+                              name: 'Double Line',
+                              color: Color(0xFF878787),
+                              dataSource: _chartData,
+                              xValueMapper: (ChartData data, _) => data.date,
+                              yValueMapper: (ChartData data, _) =>
+                                  data.doubleLine),
+                          ColumnSeries<ChartData, DateTime>(
+                              name: 'Crossing Line',
+                              color: Color(0xFF555555),
+                              dataSource: _chartData,
+                              xValueMapper: (ChartData data, _) => data.date,
+                              yValueMapper: (ChartData data, _) =>
+                                  data.crossingLine)
+                        ],
+                        //primaryXAxis: DateTimeAxis(), //DateTimeAxis ->Axis type
+                        primaryXAxis: DateTimeAxis(
+                            intervalType: DateTimeIntervalType.hours,
+                            interval: 4,
+                            title: AxisTitle(
+                                text: 'Hours',
+                                textStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'Roboto',
+                                  fontSize: 12,
+                                  // fontStyle: FontStyle.italic,
+                                  // fontWeight: FontWeight.w300
+                                ))),
+                        // primaryYAxis: NumericAxis(edgeLabelPlacement: EdgeLabelPlacement.shift),
+                        primaryYAxis: NumericAxis(
+                            title: AxisTitle(
+                                text: 'Frequency',
+                                textStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'Roboto',
+                                  fontSize: 12,
+                                  // fontStyle: FontStyle.italic,
+                                  // fontWeight: FontWeight.w300
+                                ))),
+                        palette: <Color>[
+                          Colors.purple,
+                          Colors.blueGrey,
+                          Colors.red
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
-        ),
-        child: SfCartesianChart(
-          title: ChartTitle(text: 'Day summary graph'),
-          legend: Legend(isVisible: true),
-          series: <ChartSeries<ChartData, DateTime>>[
-            ColumnSeries<ChartData, DateTime>(
-                name: 'Single Line',
-                dataSource: _chartData,
-                xValueMapper: (ChartData data, _) => data.date,
-                yValueMapper: (ChartData data, _) => data.singleLine),
-            // LineSeries<ChartData, DateTime>(
-            //     name: 'Breakages',
-            //     dataSource: _chartData,
-            //     xValueMapper: (ChartData sales, _) => sales.date,
-            //     yValueMapper: (ChartData sales, _) => sales.p_value,
-            //     enableTooltip: true)
-            ColumnSeries<ChartData, DateTime>(
-                name: 'Double Line',
-                dataSource: _chartData,
-                xValueMapper: (ChartData data, _) => data.date,
-                yValueMapper: (ChartData data, _) => data.doubleLine),
-            ColumnSeries<ChartData, DateTime>(
-                name: 'Crossing Line',
-                dataSource: _chartData,
-                xValueMapper: (ChartData data, _) => data.date,
-                yValueMapper: (ChartData data, _) => data.crossingLine)
-          ],
-          //primaryXAxis: DateTimeAxis(), //DateTimeAxis ->Axis type
-          primaryXAxis: DateTimeAxis(
-              intervalType: DateTimeIntervalType.hours,
-              interval: 4,
-              title: AxisTitle(
-                  text: 'Hours',
-                  textStyle: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'Roboto',
-                    fontSize: 12,
-                    // fontStyle: FontStyle.italic,
-                    // fontWeight: FontWeight.w300
-                  ))),
-          // primaryYAxis: NumericAxis(edgeLabelPlacement: EdgeLabelPlacement.shift),
-          primaryYAxis: NumericAxis(
-              title: AxisTitle(
-                  text: 'Frequency',
-                  textStyle: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'Roboto',
-                    fontSize: 12,
-                    // fontStyle: FontStyle.italic,
-                    // fontWeight: FontWeight.w300
-                  ))),
-          palette: <Color>[Colors.purple, Colors.blueGrey, Colors.red],
         ),
       ),
     );

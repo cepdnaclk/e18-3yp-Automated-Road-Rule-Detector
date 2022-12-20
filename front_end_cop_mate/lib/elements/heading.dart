@@ -12,20 +12,23 @@ class heading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      color: Colors.deepOrangeAccent,
-      height: 80,
+      color: Color(0xFF1B3C56),
+      height: 70,
       child: Row(
         children: [
           SizedBox(
             width: 20,
           ),
-          Icon(icon),
+          Icon(
+            icon,
+            color: Colors.white,
+          ),
           SizedBox(
             width: space,
           ),
           Text(
             string,
-            style: TextStyle(fontSize: 30),
+            style: TextStyle(fontSize: 30, color: Colors.white),
           ),
         ],
       ),

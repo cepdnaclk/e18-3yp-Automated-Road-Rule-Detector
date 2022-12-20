@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.CopMate.front_end_cop_mate">
    <application
-        android:label="front_end_cop_mate"
+        android:label="Cop Mate"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

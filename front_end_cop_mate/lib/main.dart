@@ -25,8 +25,10 @@ class CopMate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Lato',
+        backgroundColor: Color(0xFF234E70),
       ),
       initialRoute: bottomnavigationbar.id,
       routes: {
@@ -34,11 +36,10 @@ class CopMate extends StatelessWidget {
         day_summary_graph.id: (context) => day_summary_graph(),
         day_summary_map.id: (context) => welcome_screen(),
         login_screen.id: (context) => login_screen(),
-        one_breaking.id: (context) => one_breaking(),
         register_user.id: (context) => register_user(),
         register_vehicle.id: (context) => register_vehicle(),
         settings.id: (context) => settings(),
-        vehicle_analyze.id: (context) => vehicle_analyze(),
+        //vehicle_analyze.id: (context) => vehicle_analyze(),
         bottomnavigationbar.id: (context) => bottomnavigationbar(),
         search_vehciles.id: (context) => search_vehciles(),
       },

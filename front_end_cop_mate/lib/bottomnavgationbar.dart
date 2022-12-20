@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:front_end_cop_mate/screens/day_summary_graph.dart';
 import 'package:front_end_cop_mate/screens/day_summary_graph.dart';
 import 'package:front_end_cop_mate/screens/day_summary_map.dart';
 import 'package:front_end_cop_mate/screens/settings.dart';
 import 'package:front_end_cop_mate/screens/vehicle_analyze.dart';
 import 'package:front_end_cop_mate/screens/settings.dart';
+import 'package:front_end_cop_mate/screens/search_vehicles.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:front_end_cop_mate/screens/search_vehicles.dart';
 
 class bottomnavigationbar extends StatefulWidget {
@@ -24,11 +27,25 @@ class _bottomnavigationbarState extends State<bottomnavigationbar> {
   ];
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getCurrentUser();
+  }
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  void getCurrentUser() async {
+    User? user = await auth.currentUser;
+    print("Logged in!");
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Cop Mate'),
-        backgroundColor: Colors.indigo,
+        backgroundColor: Color(0xFF518BB8),
       ),
       body: IndexedStack(
         index: currentIndex,
@@ -36,7 +53,7 @@ class _bottomnavigationbarState extends State<bottomnavigationbar> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.indigo,
+        backgroundColor: Color(0xFF518BB8),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70,
         iconSize: 40,

@@ -21,35 +21,35 @@ class _welcome_screenState extends State<welcome_screen> {
             height: double.infinity,
             width: double.infinity,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [
-                  Colors.indigo.shade400,
-                  Colors.deepOrange.shade200,
-                ],
-              ),
-            ),
+                // gradient: LinearGradient(
+                //   begin: Alignment.topRight,
+                //   end: Alignment.bottomLeft,
+                //   colors: [
+                //     Colors.indigo.shade400,
+                //     Colors.deepOrange.shade200,
+                //   ],
+                // ),
+                color: Color(0xFF234E70)),
             child: Column(
               children: [
                 SizedBox(
                   height: 50,
                 ),
                 CircleAvatar(
-                  radius: 150,
-                  backgroundImage: AssetImage(
-                      'images/cute-police-cartoon-icon-illustration-vector.jpg'),
+                  radius: 100,
+                  backgroundColor: Colors.indigo.shade100,
+                  backgroundImage: AssetImage('images/FNkW-Z8XMAA59Kt.png'),
                 ),
                 SizedBox(
-                  height: 50,
+                  height: 40,
                 ),
                 Text("Cop Mate",
                     style: TextStyle(
                         fontFamily: "Lobster",
                         fontSize: 100,
-                        color: Colors.indigo)),
+                        color: Colors.white)),
                 SizedBox(
-                  height: 30,
+                  height: 90,
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -57,11 +57,11 @@ class _welcome_screenState extends State<welcome_screen> {
                   },
                   child: Text(
                     "Login",
-                    style: TextStyle(fontSize: 30),
+                    style: TextStyle(fontSize: 30, color: Colors.black),
                   ),
                   style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll<Color>(
-                        Colors.deepOrange.shade400),
+                    backgroundColor:
+                        MaterialStatePropertyAll<Color>(Color(0xFFFBF8BE)),
                     minimumSize: MaterialStatePropertyAll<Size>(Size(150, 50)),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
@@ -79,17 +79,17 @@ class _welcome_screenState extends State<welcome_screen> {
                   },
                   child: Text(
                     "Register",
-                    style: TextStyle(fontSize: 30),
+                    style: TextStyle(fontSize: 20, color: Colors.grey),
                   ),
                   style: ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll<Color>(
-                      Colors.deepOrange.shade400,
+                      Color(0xFF234E70),
                     ),
-                    minimumSize: MaterialStatePropertyAll<Size>(Size(150, 50)),
+                    minimumSize: MaterialStatePropertyAll<Size>(Size(50, 50)),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
-                          side: BorderSide(color: Colors.red)),
+                          side: BorderSide()),
                     ),
                   ),
                 ),
