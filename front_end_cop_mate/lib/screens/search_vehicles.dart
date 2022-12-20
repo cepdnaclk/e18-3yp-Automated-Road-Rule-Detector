@@ -143,6 +143,7 @@ class _search_vehcilesState extends State<search_vehciles> {
                       borderRadius: BorderRadius.all(Radius.circular(25.0))),
                   height: 600,
                   child: ListView.builder(
+                    key: Key("list1"),
                     shrinkWrap: true,
                     itemCount: vehiclesDup.length,
                     itemBuilder: (context, index) {
@@ -176,17 +177,16 @@ class _search_vehcilesState extends State<search_vehciles> {
                                 List<dynamic> breakinsdata =
                                     jsonDecode(response2.body);
                                 List<Breaking> breakings = [];
-
                                 breakinsdata.forEach((item) {
                                   Breaking tempBreak = Breaking(
-                                      vehiclenumber: item["licenseplatenumber"],
-                                      breakingnumber:
-                                          item["licenseplatenumber"],
-                                      pvalue: item["pvalue"],
-                                      type: item["licenseplatenumber"],
-                                      location: item["licenseplatenumber"],
-                                      distance: item["licenseplatenumber"],
-                                      dateandtime: item["datetime"]);
+                                    vehiclenumber: item["licenseplatenumber"],
+                                    breakingnumber: "",
+                                    pvalue: item["pvalue"],
+                                    type: item["typeofline"],
+                                    location: item["location"],
+                                    distance: item["distance"],
+                                    dateandtime: item["datetime"],
+                                  );
                                   breakings.add(tempBreak);
                                 });
 

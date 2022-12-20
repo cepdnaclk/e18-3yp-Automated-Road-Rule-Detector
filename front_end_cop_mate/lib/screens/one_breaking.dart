@@ -56,26 +56,10 @@ class _one_breakingState extends State<one_breaking> {
             padding: EdgeInsets.all(10.0),
             child: Column(
               children: [
-                Container(
-                  width: double.infinity,
-                  color: Color(0xFF9FB9F1),
-                  height: 80,
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Icon(FontAwesomeIcons.trafficLight),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Text(
-                        "Breaking No" + widget.breaking.breakingnumber,
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                ),
+                heading(
+                    string: "Road Rule Breaking",
+                    icon: FontAwesomeIcons.trafficLight,
+                    space: 20),
                 SizedBox(height: 30),
                 ReusableCard(
                     string: "Vehicle No." + widget.breaking.vehiclenumber),
@@ -129,10 +113,12 @@ class _one_breakingState extends State<one_breaking> {
                 SizedBox(height: 5),
                 ReusableCard(string: "Location: " + widget.breaking.location),
                 SizedBox(height: 5),
-                ReusableCard(string: "Distance: " + widget.breaking.distance),
+                ReusableCard(
+                    string: "Distance: " + widget.breaking.distance + " m"),
                 SizedBox(height: 5),
                 ReusableCard(
                     string: "Date and Time: " + widget.breaking.dateandtime),
+                SizedBox(height: 150),
               ],
             ),
           ),
