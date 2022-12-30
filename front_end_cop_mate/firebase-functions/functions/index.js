@@ -100,7 +100,7 @@ exports.updateVehicle = functions.https.onRequest(async (req, res) => {
     }
     const usersDb = db.collection('vehicle');
     const response = await usersDb.doc(id).set(vehicleJson);
-    res.send(response.data());
+    res.send(response);
   } catch(error){
     res.send(error);
   }
@@ -123,24 +123,97 @@ exports.deleteVehicle = functions.https.onRequest(async (req, res) => {
 
 exports.getFrequency = functions.https.onRequest(async (req, res) => {
   try{
+    // Get the time stamp of the date sent
     const dateParameter = req.url.split("/")[1].split("=")[1];
-
     const date = new Date(dateParameter);
-    // const timestamp = date.getTime();
+    const dateTimeStamp = admin.firestore.Timestamp.fromDate(date);
+    // const dateTimeStamp = date.getTime();
+    // res.send(dateTimeStamp);
+
+    // Time stamp of the next day
     const dateNext = new Date(dateParameter);
     dateNext.setDate(dateNext.getDate() + 1);
+    const dateTimeStampNext = dateNext.getTime();
+    const nextdateTimeStamp = admin.firestore.Timestamp.fromDate(dateNext);
+    // res.send(nextdateTimeStamp);
 
-    // // Get the date and time from the time stamp
-    const breakings = await db.collection('breaking').where('datetime','>=', date.getTime()).get();
+    // Get all breakings of that day
+    const breakings = await db.collection('breaking').where('datetime','>=',dateTimeStamp).where('datetime', '<=', nextdateTimeStamp).get();
     const response = breakings.docs.map(doc => doc.data());
-    // const date = response.datetime.toDate();
+    // const timestamp = response.datetime;
+    // res.send(timestamp);
     // const dateStr = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`; 
     // const timeStr = `${(date.getHours() + 6 + (date.getMinutes() + 30)/60) | 0}:${(date.getMinutes() + 30)%60}`;
 
     // const ret = date.getDate();
     // DateFormat("yyyy-MM-dd hh:mm").format(date);
+
+    // new Date(timestamp.seconds*1000)
+
+    const timePeriods = [{
+                          dash: 0,
+                          single: 0,
+                          double: 0
+                        },{
+                          dash: 0,
+                          single: 0,
+                          double: 0
+                        },{
+                          dash: 0,
+                          single: 0,
+                          double: 0
+                        },{
+                          dash: 0,
+                          single: 0,
+                          double: 0
+                        },{
+                          dash: 0,
+                          single: 0,
+                          double: 0
+                        },{
+                          dash: 0,
+                          single: 0,
+                          double: 0
+                        }];
+    // timePeriods[0] 
+
+    for(let i = 0; i < response.length; i++){
+      // Get the time of day of the breaking
+      var hours = response[i].datetime.toDate().getHours();
+      if(response[i].datetime.toDate().getMinutes() + 30 >= 60){
+        hours = hours + 6;
+      }else{
+        hours = hours + 5;
+      }
+      
+      // Update the line break frequency
+      if(response[i].typeofline == "dash"){
+        timePeriods[hours/4].dash = timePeriods[hours/4].dash + 1;
+      }else if(response[i].typeofline == "single"){
+        timePeriods[hours/4].single = timePeriods[hours/4].single + 1;
+      }else if(response[i].typeofline == "double"){
+        timePeriods[hours/4].double = timePeriods[hours/4].double + 1;
+      }
+
+      
+
+    }
+
+    
+    // timePeriods[0].dash = timePeriods[0].dash+ 2000;
+    // timePeriods[0] = {date: "2022-12-30", dash: 10, single: 20, double: 2};
+
     return res.send(
-      response
+      // response
+      // response[0].datetime.seconds*1000
+      // response[0].licenseplatenumber
+      // (response[2].datetime.seconds & 86400)/3600
+      
+      // response[0].datetime.toDate().getHours() + 5
+      // response[3].datetime.toDate()
+      // timePeriods[0].dash
+      // hours
+      timePeriods
     );
   } catch(error){
     res.send(error);
