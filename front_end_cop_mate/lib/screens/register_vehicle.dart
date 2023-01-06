@@ -87,7 +87,7 @@ class _register_vehicleState extends State<register_vehicle> {
           FontAwesomeIcons.car,
           color: Colors.black,
         ),
-        hintText: "Vehiclee Number",
+        hintText: "Vehicle Number",
         hintStyle: TextStyle(color: Colors.grey),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(
