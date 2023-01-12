@@ -227,14 +227,19 @@ exports.dayBreakings = functions.https.onRequest(async (req, res) => {
 });
 
 exports.addBreaking = functions.https.onRequest(async (req, res) => {
+  const licenseplatenumber = req.url.split("licenseplatenumber=")[1].split("&")[0]
+  const typeofline =  req.url.split("typeofline=")[1].split("&")[0]
+  const distance = req.url.split("distance=")[1].split("&")[0]
+  const pvalue = req.url.split("pvalue=")[1].split("&")[0]
+  console.log(pvalue)
   try{
     
     const vehicleJson = {
       datetime: admin.firestore.FieldValue.serverTimestamp(),
-      licenseplatenumber: req.body.licenseplatenumber,
-      typeofline: req.body.typeofline,
-      distance: req.body.distance,
-      pvalue: req.body.pvalue
+      licenseplatenumber: licenseplatenumber,
+      typeofline: typeofline,
+      distance: distance,
+      pvalue: pvalue
     }
 
     const usersDb = db.collection('breaking');
