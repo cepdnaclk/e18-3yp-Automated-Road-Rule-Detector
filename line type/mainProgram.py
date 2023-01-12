@@ -3,7 +3,7 @@ import numpy as np
 import time
 from controls import Controls
 
-cap = cv2.VideoCapture("http://10.30.9.208:8081/video")
+cap = cv2.VideoCapture("test.mp4")
 
 scan_line_pos = []
 
