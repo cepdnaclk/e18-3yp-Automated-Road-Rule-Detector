@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:front_end_cop_mate/elements/heading.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:intl/intl.dart';
 
 void main() {
   return runApp(_ChartApp());
@@ -29,8 +32,9 @@ class _day_summary_graphState extends State<day_summary_graph> {
 
   @override
   void initState() {
-    _chartData = getChartData();
+    _chartData = getChartDataFirst();
     super.initState();
+    getChartDataSecond();
   }
 
   @override
@@ -54,12 +58,15 @@ class _day_summary_graphState extends State<day_summary_graph> {
                   string: "Day Summary",
                   icon: FontAwesomeIcons.calendarDay,
                   space: 20),
+              SizedBox(
+                height: 10,
+              ),
               Container(
                 padding: EdgeInsets.all(20),
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 30,
+                      height: 10,
                     ),
                     Container(
                       height: 600,
@@ -69,7 +76,7 @@ class _day_summary_graphState extends State<day_summary_graph> {
                         backgroundColor: Colors.white70,
                         series: <ChartSeries<ChartData, DateTime>>[
                           ColumnSeries<ChartData, DateTime>(
-                              name: 'Single Line',
+                              name: 'Dash',
                               color: Color(0xFFa9a9a9),
                               dataSource: _chartData,
                               xValueMapper: (ChartData data, _) => data.date,
@@ -82,14 +89,14 @@ class _day_summary_graphState extends State<day_summary_graph> {
                           //     yValueMapper: (ChartData sales, _) => sales.p_value,
                           //     enableTooltip: true)
                           ColumnSeries<ChartData, DateTime>(
-                              name: 'Double Line',
+                              name: 'Single Line',
                               color: Color(0xFF878787),
                               dataSource: _chartData,
                               xValueMapper: (ChartData data, _) => data.date,
                               yValueMapper: (ChartData data, _) =>
                                   data.doubleLine),
                           ColumnSeries<ChartData, DateTime>(
-                              name: 'Crossing Line',
+                              name: 'Double Line',
                               color: Color(0xFF555555),
                               dataSource: _chartData,
                               xValueMapper: (ChartData data, _) => data.date,
@@ -137,15 +144,76 @@ class _day_summary_graphState extends State<day_summary_graph> {
     );
   }
 
-  List<ChartData> getChartData() {
+  List<ChartData> getChartDataFirst() {
+    var now = DateTime.now();
+
     final List<ChartData> chartData = [
-      ChartData(DateTime(2022, 12, 1, 1, 20), 26, 12, 18),
-      ChartData(DateTime(2022, 12, 1, 6, 20), 51, 25, 6),
-      ChartData(DateTime(2022, 12, 1, 10, 20), 29, 22, 9),
-      ChartData(DateTime(2022, 12, 1, 15, 20), 34, 23, 22),
-      ChartData(DateTime(2022, 12, 1, 21, 20), 60, 15, 25),
+      ChartData(DateTime(now.year, now.month, now.day, 2), 0, 0, 0),
+      ChartData(DateTime(now.year, now.month, now.day, 6), 0, 0, 0),
+      ChartData(DateTime(now.year, now.month, now.day, 10), 0, 0, 0),
+      ChartData(DateTime(now.year, now.month, now.day, 14), 0, 0, 0),
+      ChartData(DateTime(now.year, now.month, now.day, 18), 0, 0, 0),
+      ChartData(DateTime(now.year, now.month, now.day, 22), 0, 0, 0),
     ];
     return chartData;
+  }
+
+  void getChartDataSecond() async {
+    var now = new DateTime.now();
+    var formatter = new DateFormat('yyyy-MM-dd');
+    String formattedDate = formatter.format(now);
+
+    String urlbreakings =
+        "https://us-central1-cop-mate.cloudfunctions.net/getFrequency?date=" +
+            formattedDate;
+    final List<ChartData> chartData;
+    final response = await http.get(Uri.parse(urlbreakings));
+    if (response.statusCode == 200) {
+      var decodeData = jsonDecode(response.body);
+      chartData = [
+        ChartData(
+          DateTime(now.year, now.month, now.day, 2),
+          decodeData[0]['dash'] + .0,
+          decodeData[0]['single'] + .0,
+          decodeData[0]['double'] + .0,
+        ),
+        ChartData(
+          DateTime(now.year, now.month, now.day, 6),
+          decodeData[1]['dash'] + .0,
+          decodeData[1]['single'] + .0,
+          decodeData[1]['double'] + .0,
+        ),
+        ChartData(
+          DateTime(now.year, now.month, now.day, 10),
+          decodeData[2]['dash'] + .0,
+          decodeData[2]['single'] + .0,
+          decodeData[2]['double'] + .0,
+        ),
+        ChartData(
+          DateTime(now.year, now.month, now.day, 14),
+          decodeData[3]['dash'] + .0,
+          decodeData[3]['single'] + .0,
+          decodeData[3]['double'] + .0,
+        ),
+        ChartData(
+          DateTime(now.year, now.month, now.day, 18),
+          decodeData[4]['dash'] + .0,
+          decodeData[4]['single'] + .0,
+          decodeData[4]['double'] + .0,
+        ),
+        ChartData(
+          DateTime(now.year, now.month, now.day, 22),
+          decodeData[5]['dash'] + .0,
+          decodeData[5]['single'] + .0,
+          decodeData[5]['double'] + .0,
+        ),
+      ];
+
+      _chartData = chartData;
+      setState(() {
+        print("Set");
+      });
+    }
   }
 }
 

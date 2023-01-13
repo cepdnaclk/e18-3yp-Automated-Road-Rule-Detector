@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:front_end_cop_mate/models/Breaking.dart';
 import 'package:front_end_cop_mate/screens/vehicle_analyze.dart';
