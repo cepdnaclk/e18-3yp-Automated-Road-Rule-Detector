@@ -177,8 +177,8 @@ import requests
 
 cap = cv2.VideoCapture(0)
 
-cap.set(3, 256) #horizontal
-cap.set(4, 144)
+# cap.set(3, 256) #horizontal
+# cap.set(4, 144)
 
 scan_line_pos = []
 
@@ -215,34 +215,63 @@ def gen_line_pos(img_shape):
     for i in range(0,NUM_LINES):
         scan_line_pos.append(int(i*step + step))
 
-def draw_lines(img, lines, points):
+
+def draw_lines(img, lines, points, sendFlag):
+
+    # print(sendRequestFlag)
 
     print("START FRAME")
 
+    # Variable for get request 
     typeofline = ""
-    distance = 0
     pvalue = 0
+    crossedAmount = 0
+    lineNumber = 0
+    flag = 0
+    lineInFrame = 0
 
 
     # Variables used to detect the type of line
     dashedLine = 0
     singleLine = 0
     doubleLine = 0
-
-    crossedAmount = 0
-    lineNumber = 0
-    flag = 0
-    sendRequestFlag = 0
     
     for i in range(NUM_LINES):
 
+        lineNumber = lineNumber + 1
+        lineInFrame = 0
+
         count = 0
         value = int((points[i][1]/2100)*255)
+        # print(int(points[i][1]))
+        # print(value)
+        valueDouble = int((points[i][1] + 200)/2100*255)
+        # print(int(points[i][1] + 100))
+        # print(valueDouble)
+
         color = (0,0,255)
+        colorDouble  = (0,0,255)
+        print(color)
+        print(colorDouble)
         if value>150:
-            count = count + 1
+            # print(value)
+            if valueDouble > 150:
+                count = 2
+                colorDouble = (0,255,0)
+            else:
+                count = count + 1
+            # print(valueDouble)
+            lineInFrame = 1
+            # print(lineInFrame)
+            # count = count + 1
             color = (0,255,0)
 
+        print("normal")
+        print(value)
+        print(color)
+        print("double")
+        print(valueDouble)
+        print(colorDouble)
         # print(value)
         line = lines[i]
 
@@ -254,17 +283,20 @@ def draw_lines(img, lines, points):
         elif(count == 2):
             doubleLine = 1
 
+        # print(colorDouble)
         cv2.line(img, (line, 0), (line, img.shape[1]), (100, 12, 255), 2)
+        # cv2.circle(img, (line, int(points[i][0] + 80)), 5, colorDouble,-1)
         cv2.circle(img, (line, int(points[i][0]-20)), 5, color,-1)
         crossedAmount = int(points[i][0]-20)
-        print(crossedAmount)
+        # print(crossedAmount)
 
-        if(lineNumber == 3 and 
-        crossedAmount > 65):
-            sendRequestFlag = 1
+        if(lineNumber >= 3 and lineInFrame == 1 and crossedAmount > 65):
+            sendFlag = 1
+            # print(sendFlag)
 
-        if (lineNumber == 3 and crossedAmount < 65):
+        if (lineNumber >= 3 and lineInFrame == 1 and crossedAmount < 65):
             flag = 1
+            # print(flag)
         
 
 #     print(dashedLine)
@@ -285,16 +317,18 @@ def draw_lines(img, lines, points):
         typeofline = "dashsingle"
 #         print("dashed single line")
 
-    if(flag == 1 and sendRequestFlag == 1):
+    if(flag == 1 and sendFlag == 1):
         # Send hardware details to the database
-        url = "https://us-central1-cop-mate.cloudfunctions.net/addBreaking?licenseplatenumber=KJ-1111&typeofline=%s&distance=%s&pvalue=%s"%(typeofline, crossedAmount, pvalue)
-        response = requests.get(url)
-        print(response)
-        sendRequestFlag = 0
+        # url = "https://us-central1-cop-mate.cloudfunctions.net/addBreaking?licenseplatenumber=KJ-1111&typeofline=%s&distance=%s&pvalue=%s"%(typeofline, crossedAmount, pvalue)
+        # response = requests.get(url)
+        # print(response)
+        # print("crossed")
+        sendFlag = 0
 
     
 
     print("END FRAME")
+    return sendFlag
     
 def detect_line(scan_line):
 
@@ -310,8 +344,12 @@ print(img.shape)
 
 gen_line_pos(img.shape[1])
 
+sendRequestFlag = 0
+# print(sendRequestFlag)
 
 while True:
+
+    # print("START")
     t1 = time.time()
     ret, img = cap.read()
 
@@ -325,8 +363,9 @@ while True:
         
     
     # print(scan_line.shape, conv.shape)
-    
-    draw_lines(img, scan_line_pos, points)
+    # print(sendRequestFlag)
+    sendRequestFlag = draw_lines(img, scan_line_pos, points, sendRequestFlag)
+    # print(sendRequestFlag)
     if DEBUG:
         # cv2.imshow("conv", conv)
         cv2.imshow("img", img)
@@ -337,6 +376,8 @@ while True:
     t2 = time.time()
 
     elpsed_frametime = (t2 - t1)
+
+    # print("END")
  
 
 
