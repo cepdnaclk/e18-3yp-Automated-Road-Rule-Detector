@@ -216,14 +216,14 @@ def gen_line_pos(img_shape):
         scan_line_pos.append(int(i*step + step))
 
 
-def draw_lines(img, lines, points, sendFlag):
+def draw_lines(img, lines, points, sendFlag, queue):
 
     # print(sendRequestFlag)
 
     print("START FRAME")
 
     # Variable for get request 
-    typeofline = ""
+    typeofline =  ""
     pvalue = 0
     crossedAmount = 0
     lineNumber = 0
@@ -251,27 +251,27 @@ def draw_lines(img, lines, points, sendFlag):
 
         color = (0,0,255)
         colorDouble  = (0,0,255)
-        print(color)
-        print(colorDouble)
+        # print(color)
+        # print(colorDouble)
         if value>150:
             # print(value)
-            if valueDouble > 150:
-                count = 2
-                colorDouble = (0,255,0)
-            else:
-                count = count + 1
+            # if valueDouble > 150:
+                # count = 2
+                # colorDouble = (0,255,0)
+            # else:
+                # count = count + 1
             # print(valueDouble)
             lineInFrame = 1
             # print(lineInFrame)
-            # count = count + 1
+            count = count + 1
             color = (0,255,0)
 
-        print("normal")
-        print(value)
-        print(color)
-        print("double")
-        print(valueDouble)
-        print(colorDouble)
+        # print("normal")
+        # print(value)
+        # print(color)
+        # print("double")
+        # print(valueDouble)
+        # print(colorDouble)
         # print(value)
         line = lines[i]
 
@@ -299,10 +299,10 @@ def draw_lines(img, lines, points, sendFlag):
             # print(flag)
         
 
-#     print(dashedLine)
-#     print(singleLine)
-#     print(doubleLine)
-
+    # print(dashedLine)
+    # print(singleLine)
+    # print(doubleLine)
+    # typeofline = "Hi"
     # At the end of the 10 lines in that frame, determine the type of line
     if((dashedLine == 1 and singleLine == 1 and doubleLine == 0) ):
         typeofline = "dash"
@@ -316,6 +316,8 @@ def draw_lines(img, lines, points, sendFlag):
     elif(dashedLine == 0 and singleLine == 1 and doubleLine == 1):
         typeofline = "dashsingle"
 #         print("dashed single line")
+    else:
+        typeofline = "noline"
 
     if(flag == 1 and sendFlag == 1):
         # Send hardware details to the database
@@ -324,9 +326,15 @@ def draw_lines(img, lines, points, sendFlag):
         # print(response)
         # print("crossed")
         sendFlag = 0
+    print(typeofline)
+    if(len(queue) == 10):
+        queue.pop(0)
+        queue.append(typeofline)
+    else:
+        queue.append(typeofline)
 
-    
-
+    print(queue)
+    print(queue[len(queue)-1])
     print("END FRAME")
     return sendFlag
     
@@ -345,6 +353,8 @@ print(img.shape)
 gen_line_pos(img.shape[1])
 
 sendRequestFlag = 0
+
+queue = []
 # print(sendRequestFlag)
 
 while True:
@@ -364,7 +374,7 @@ while True:
     
     # print(scan_line.shape, conv.shape)
     # print(sendRequestFlag)
-    sendRequestFlag = draw_lines(img, scan_line_pos, points, sendRequestFlag)
+    sendRequestFlag = draw_lines(img, scan_line_pos, points, sendRequestFlag, queue)
     # print(sendRequestFlag)
     if DEBUG:
         # cv2.imshow("conv", conv)

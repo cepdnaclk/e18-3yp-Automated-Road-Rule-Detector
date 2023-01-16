@@ -230,7 +230,36 @@ exports.addBreaking = functions.https.onRequest(async (req, res) => {
   const licenseplatenumber = req.url.split("licenseplatenumber=")[1].split("&")[0]
   const typeofline =  req.url.split("typeofline=")[1].split("&")[0]
   const distance = req.url.split("distance=")[1].split("&")[0]
-  const pvalue = req.url.split("pvalue=")[1].split("&")[0]
+  // const pvalue = req.url.split("pvalue=")[1].split("&")[0]
+  const location = req.url.split("location=")[1].split("&")[0]
+
+
+  // Calculate the pValue
+  var line;
+  var dist;
+  if(typeofline == "dash"){
+    line = 0;
+  }else if(typeofline == "single"){
+    line = 0.3;
+  }else{
+    line = 0.7;
+  }
+
+  if(Math.ceil(distance) >= 0 && Math.ceil(distance) <= 400){
+    dist = 0.4;
+  }else if(Math.ceil(distance) >= 401 && Math.ceil(distance) <= 800){
+    dist = 0.3;
+  }else if(Math.ceil(distance) >= 801 && Math.ceil(distance) <= 1200){
+    dist = 0.2;
+  }else if(Math.ceil(distance) >=1201 && Math.ceil(distance) <= 1600){
+    dist = 0.1;
+  }else{
+    dist = 0;
+  }
+
+  var pvalue = line + dist;
+
+
   console.log(pvalue)
   try{
     
@@ -239,7 +268,8 @@ exports.addBreaking = functions.https.onRequest(async (req, res) => {
       licenseplatenumber: licenseplatenumber,
       typeofline: typeofline,
       distance: distance,
-      pvalue: pvalue
+      pvalue: pvalue,
+      location: location
     }
 
     const usersDb = db.collection('breaking');
