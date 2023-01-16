@@ -93,8 +93,30 @@ class _day_summary_mapState extends State<day_summary_map> {
                 ),
                 child: Column(
                   children: [
+                    Container(
+                      width: 250,
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll<Color>(
+                                Colors.blueAccent.shade100)),
+                        onPressed: () {
+                          setState(() {});
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Refresh",
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                     SizedBox(
-                      height: 30,
+                      height: 15,
                     ),
                     Container(
                       padding: const EdgeInsets.all(10),
