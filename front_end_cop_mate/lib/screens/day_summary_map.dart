@@ -170,6 +170,10 @@ class _day_summary_mapState extends State<day_summary_map> {
       breakinsdata.forEach((item) {
         double lat = double.parse(item['location'].split(', ')[0]);
         double lng = double.parse(item['location'].split(', ')[1]);
+        var date = new DateTime.fromMillisecondsSinceEpoch(
+            item['datetime']["_seconds"] * 1000);
+        String dateanddtime = date.toString();
+        dateanddtime = dateanddtime.substring(0, 19);
 
         Breaking tempBreak = Breaking(
           vehiclenumber: item["licenseplatenumber"],
@@ -178,7 +182,7 @@ class _day_summary_mapState extends State<day_summary_map> {
           type: item["typeofline"],
           location: item["location"],
           distance: item["distance"],
-          dateandtime: item['datetime'].toString(),
+          dateandtime: dateanddtime,
         );
 
         Marker tempMark = Marker(

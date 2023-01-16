@@ -116,8 +116,22 @@ class _one_breakingState extends State<one_breaking> {
                 ReusableCard(
                     string: "Distance: " + widget.breaking.distance + " m"),
                 SizedBox(height: 5),
-                ReusableCard(
-                    string: "Date and Time: " + widget.breaking.dateandtime),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white54,
+                  ),
+                  height: 100,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text("Date and Time:" + widget.breaking.dateandtime,
+                          style: TextStyle(fontSize: 20)),
+                    ],
+                  ),
+                ),
                 SizedBox(height: 150),
               ],
             ),
