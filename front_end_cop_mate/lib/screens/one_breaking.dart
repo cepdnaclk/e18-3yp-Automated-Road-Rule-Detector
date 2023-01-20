@@ -65,6 +65,25 @@ class _one_breakingState extends State<one_breaking> {
                     string: "Vehicle No." + widget.breaking.vehiclenumber),
                 SizedBox(height: 5),
                 Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white54,
+                  ),
+                  height: 60,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text("Breaking Ref:  " + widget.breaking.breakingnumber,
+                          style: TextStyle(fontSize: 18)),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
                   color: Colors.grey,
                   height: 200,
                   child: Column(
@@ -84,7 +103,7 @@ class _one_breakingState extends State<one_breaking> {
                         ),
                         child: SfLinearGauge(
                             minimum: 0.0,
-                            maximum: 100.0,
+                            maximum: 1.1,
                             markerPointers: [
                               LinearShapePointer(
                                   value: double.parse(widget.breaking.pvalue))
@@ -121,14 +140,14 @@ class _one_breakingState extends State<one_breaking> {
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.white54,
                   ),
-                  height: 100,
+                  height: 60,
                   child: Row(
                     children: [
                       SizedBox(
                         width: 20,
                       ),
                       Text("Date and Time:" + widget.breaking.dateandtime,
-                          style: TextStyle(fontSize: 20)),
+                          style: TextStyle(fontSize: 18)),
                     ],
                   ),
                 ),
@@ -150,7 +169,7 @@ Widget _getLinearGauge() {
     ),
     child: SfLinearGauge(
         minimum: 0.0,
-        maximum: 100.0,
+        maximum: 1.1,
         markerPointers: [LinearShapePointer(value: 80)],
         barPointers: [LinearBarPointer(value: 80)],
         orientation: LinearGaugeOrientation.horizontal,

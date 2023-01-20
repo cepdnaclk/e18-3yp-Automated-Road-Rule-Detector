@@ -70,11 +70,40 @@ class _day_summary_mapState extends State<day_summary_map> {
                       color: Colors.white,
                     ),
                     SizedBox(
-                      width: 20,
+                      width: 30,
                     ),
                     Text(
-                      "View Road Rule Map",
-                      style: TextStyle(fontSize: 25, color: Colors.white),
+                      "Road Rule Breakings Map",
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                    SizedBox(
+                      width: 25,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(20.0))),
+                      width: 60,
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll<Color>(
+                                Color(0xFF1B3C56))),
+                        onPressed: () {
+                          setState(() {
+                            getMarkers();
+                          });
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              FontAwesomeIcons.refresh,
+                              size: 20,
+                            )
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -93,28 +122,6 @@ class _day_summary_mapState extends State<day_summary_map> {
                 ),
                 child: Column(
                   children: [
-                    Container(
-                      width: 250,
-                      height: 50,
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll<Color>(
-                                Colors.blueAccent.shade100)),
-                        onPressed: () {
-                          setState(() {});
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Refresh",
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
                     SizedBox(
                       height: 15,
                     ),
@@ -158,9 +165,11 @@ class _day_summary_mapState extends State<day_summary_map> {
     var now = new DateTime.now();
     var formatter = new DateFormat('yyyy-MM-dd');
     String formattedDate = formatter.format(now);
-
     String urlbreakings =
-        "https://us-central1-cop-mate.cloudfunctions.net/dayBreakings?date=2023-01-02";
+        "https://us-central1-cop-mate.cloudfunctions.net/dayBreakings?date=" +
+            formattedDate;
+
+    print(formattedDate);
     final List<Marker> markerData = [];
     final response = await http.get(Uri.parse(urlbreakings));
     if (response.statusCode == 200) {
@@ -168,8 +177,11 @@ class _day_summary_mapState extends State<day_summary_map> {
       List<dynamic> breakinsdata = decodeData;
 
       breakinsdata.forEach((item) {
-        double lat = double.parse(item['location'].split(', ')[0]);
-        double lng = double.parse(item['location'].split(', ')[1]);
+        print(item['location'].split(',')[0]);
+
+        var lat = double.parse(item['location'].split(',')[0]);
+        var lng = double.parse(item['location'].split(',')[1]);
+
         var date = new DateTime.fromMillisecondsSinceEpoch(
             item['datetime']["_seconds"] * 1000);
         String dateanddtime = date.toString();
@@ -178,7 +190,7 @@ class _day_summary_mapState extends State<day_summary_map> {
         Breaking tempBreak = Breaking(
           vehiclenumber: item["licenseplatenumber"],
           breakingnumber: "",
-          pvalue: item["pvalue"],
+          pvalue: item["pvalue"].toString(),
           type: item["typeofline"],
           location: item["location"],
           distance: item["distance"],

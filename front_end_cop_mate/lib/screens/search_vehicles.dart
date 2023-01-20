@@ -177,14 +177,24 @@ class _search_vehcilesState extends State<search_vehciles> {
                                     jsonDecode(response2.body);
                                 List<Breaking> breakings = [];
                                 breakinsdata.forEach((item) {
+                                  Map itemMap = item;
+                                  var date =
+                                      new DateTime.fromMillisecondsSinceEpoch(
+                                          itemMap.values.first["datetime"]
+                                                  ["_seconds"] *
+                                              1000);
+                                  String dateanddtime = date.toString();
+
                                   Breaking tempBreak = Breaking(
-                                    vehiclenumber: item["licenseplatenumber"],
-                                    breakingnumber: "",
-                                    pvalue: item["pvalue"],
-                                    type: item["typeofline"],
-                                    location: item["location"],
-                                    distance: item["distance"],
-                                    dateandtime: item["datetime"],
+                                    vehiclenumber: itemMap
+                                        .values.first["licenseplatenumber"],
+                                    breakingnumber: itemMap.keys.first,
+                                    pvalue: itemMap.values.first["pvalue"]
+                                        .toString(),
+                                    type: itemMap.values.first["typeofline"],
+                                    location: itemMap.values.first["location"],
+                                    distance: itemMap.values.first["distance"],
+                                    dateandtime: dateanddtime,
                                   );
                                   breakings.add(tempBreak);
                                 });
