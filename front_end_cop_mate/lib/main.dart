@@ -30,7 +30,7 @@ class CopMate extends StatelessWidget {
         fontFamily: 'Lato',
         backgroundColor: Color(0xFF234E70),
       ),
-      initialRoute: bottomnavigationbar.id,
+      initialRoute: welcome_screen.id,
       routes: {
         welcome_screen.id: (context) => welcome_screen(),
         day_summary_graph.id: (context) => day_summary_graph(),

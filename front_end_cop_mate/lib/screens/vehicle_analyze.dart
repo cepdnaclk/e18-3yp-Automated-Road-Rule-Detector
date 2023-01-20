@@ -155,7 +155,22 @@ class _vehicle_analyzeState extends State<vehicle_analyze> {
                       ReusableCard(
                           string: "Contact:    " + widget.vehicle.telephone),
                       SizedBox(height: 3),
-                      ReusableCard(string: "Email:    " + widget.vehicle.email),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white54,
+                        ),
+                        height: 60,
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Text("Email:  " + widget.vehicle.email,
+                                style: TextStyle(fontSize: 15)),
+                          ],
+                        ),
+                      ),
                       SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -237,6 +252,9 @@ class _vehicle_analyzeState extends State<vehicle_analyze> {
                             LineSeries<Breakages, DateTime>(
                                 name: 'Breakages',
                                 dataSource: _chartData,
+                                sortingOrder: SortingOrder.ascending,
+                                sortFieldValueMapper: (Breakages sales, _) =>
+                                    sales.date,
                                 xValueMapper: (Breakages sales, _) =>
                                     sales.date,
                                 yValueMapper: (Breakages sales, _) =>
